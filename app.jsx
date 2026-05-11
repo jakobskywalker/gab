@@ -175,6 +175,31 @@ const Reveal = ({ children, className = "", delay = 0, as: Tag = "div" }) => {
   return <Tag ref={ref} className={`reveal ${className}`} style={{ transitionDelay: `${delay}ms` }}>{children}</Tag>;
 };
 
+function Monogram({ className = "", compact = false }) {
+  return (
+    <div className={`monogram-seal ${compact ? "h-16 w-16 text-2xl" : "h-28 w-28 text-5xl"} ${className}`}>
+      I<span className="ampersand -mx-1">&amp;</span>G
+    </div>
+  );
+}
+
+function SectionIntro({ eyebrow, title, text, align = "center", className = "" }) {
+  const centered = align === "center";
+  return (
+    <Reveal className={`${centered ? "text-center mx-auto" : ""} ${className}`}>
+      <p className="editorial-kicker">{eyebrow}</p>
+      <h2 className={`mt-5 font-display text-4xl md:text-6xl text-espresso leading-[.98] tracking-tight ${centered ? "mx-auto" : ""}`}>
+        {title}
+      </h2>
+      {text && (
+        <p className={`mt-6 text-coffee/90 leading-relaxed ${centered ? "max-w-xl mx-auto" : "max-w-xl"}`}>
+          {text}
+        </p>
+      )}
+    </Reveal>
+  );
+}
+
 function useScrollProgress(ref) {
   const [progress, setProgress] = useState(0);
 
@@ -210,7 +235,7 @@ const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
   "showGallery": true,
   "showTimeline": true,
   "showHotels": true,
-  "heroLayout": "centered"
+  "heroLayout": "editorial"
 }/*EDITMODE-END*/;
 
 const PALETTES = [
@@ -254,9 +279,9 @@ function FloatingNav() {
 }
 
 /* ───────────────────────────── Hero ──────────────────────────────────────────────── */
-const HERO_IMAGE = "https://images.unsplash.com/photo-1525258946800-98cfd641d0de?w=1800&q=85&auto=format&fit=crop";
+const HERO_IMAGE = "/images/antrag-umarmung.png";
 
-function Hero() {
+function Hero({ heroLayout = "editorial" }) {
   const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
@@ -270,76 +295,188 @@ function Hero() {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
+  if (heroLayout === "cinematic") {
+    return (
+      <section className="hero-cinematic relative min-h-[100svh] w-full overflow-hidden px-6 py-8 text-cream md:px-10">
+        <div className="absolute inset-0">
+          <img
+            src={HERO_IMAGE}
+            alt="Izla & Gabriel"
+            className="h-full w-full object-cover transition-transform duration-200 ease-out"
+            style={{ transform: `translateY(${scrollY * 0.12}px) scale(1.08)` }}
+            onError={(e) => { e.currentTarget.style.display = "none"; }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#140d08]/90 via-[#140d08]/46 to-[#140d08]/78" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_62%_38%,transparent_0%,rgba(20,13,8,.24)_42%,rgba(20,13,8,.76)_100%)]" />
+        </div>
+
+        <div className="relative z-10 mx-auto flex min-h-[calc(100svh-4rem)] max-w-7xl flex-col">
+          <div className="flex items-center justify-between py-4 text-cream/82">
+            <span className="font-script text-base italic tracking-[0.18em]">Piro <span className="ampersand">&amp;</span> Malki</span>
+            <Monogram compact className="hidden text-cream/90 sm:grid" />
+            <span className="font-micro text-right">Private Wedding<br className="hidden sm:block" /> 2026</span>
+          </div>
+
+          <div className="flex flex-1 items-center">
+            <div className="max-w-5xl">
+              <Reveal delay={120}>
+                <p className="font-micro text-sand/90">7. November 2026 / Augsburg / Elchingen</p>
+              </Reveal>
+              <Reveal delay={280} className="mt-8">
+                <h1 className="hero-cinematic-title font-display text-[clamp(5rem,15vw,14rem)] font-medium leading-[.74] tracking-[-.085em]">
+                  Izla<br />
+                  <span className="pl-[.18em] italic text-sand">&amp;</span><br />
+                  Gabriel
+                </h1>
+              </Reveal>
+              <Reveal delay={520} className="mt-8 grid max-w-3xl grid-cols-1 gap-6 md:grid-cols-[auto_1fr] md:items-center">
+                <div className="hidden h-px w-36 bg-gradient-to-r from-cream/75 to-transparent md:block"></div>
+                <p className="font-script text-2xl italic leading-snug text-cream/86 md:text-3xl">
+                  Ein Abend voller Segen, Familie, Musik und Liebe.
+                </p>
+              </Reveal>
+              <Reveal delay={700} className="mt-10 flex flex-col gap-3 sm:flex-row">
+                <button onClick={() => scrollTo("rsvp")} className="hero-cta hero-cta-primary">
+                  <span>RSVP öffnen</span>
+                  <Icons.ArrowRight w={15} h={15} sw={2}/>
+                </button>
+                <button onClick={() => scrollTo("timeline")} className="hero-cta hero-cta-secondary">
+                  <span>Ablauf ansehen</span>
+                </button>
+              </Reveal>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (heroLayout === "invitation") {
+    return (
+      <section className="hero-invitation relative min-h-[100svh] w-full overflow-hidden px-6 py-8 text-espresso md:px-10">
+        <div className="relative z-10 mx-auto flex min-h-[calc(100svh-4rem)] max-w-7xl flex-col">
+          <div className="flex items-center justify-between py-4 text-coffee">
+            <span className="font-script text-base italic tracking-[0.18em]">Piro <span className="ampersand">&amp;</span> Malki</span>
+            <span className="font-micro text-right">Augsburg / Elchingen</span>
+          </div>
+
+          <div className="grid flex-1 grid-cols-1 items-center gap-8 py-8 lg:grid-cols-[.62fr_1fr_.62fr]">
+            <Reveal delay={160} className="hidden lg:block">
+              <div className="ph aspect-[3/4] rotate-[-2deg]">
+                <img src="/images/antrag-picknick.png" alt="Picknick beim Antrag" loading="lazy" />
+              </div>
+            </Reveal>
+
+            <Reveal delay={120}>
+              <div className="hero-paper-card ornament-corners mx-auto max-w-2xl px-8 py-14 text-center md:px-14 md:py-20">
+                <Monogram className="mx-auto text-coffee" />
+                <p className="mt-10 font-micro text-coffee">Wir heiraten</p>
+                <h1 className="mt-7 font-display text-[clamp(3.8rem,10vw,8.5rem)] font-medium leading-[.86] tracking-[-.06em]">
+                  Izla <span className="ampersand block text-coffee">&amp;</span> Gabriel
+                </h1>
+                <div className="mx-auto mt-8 h-px w-40 bg-gradient-to-r from-transparent via-coffee/55 to-transparent"></div>
+                <p className="mt-8 font-display text-2xl text-espresso md:text-4xl">7. November 2026</p>
+                <p className="mt-4 font-script text-xl italic leading-relaxed text-coffee md:text-2xl">
+                  Kirchliche Trauung und Hochzeitsfeier mit unseren Familien.
+                </p>
+                <div className="mt-10 flex flex-col justify-center gap-3 sm:flex-row">
+                  <button onClick={() => scrollTo("rsvp")} className="btn-primary inline-flex items-center justify-center gap-3 rounded-full px-7 py-4 text-xs uppercase tracking-[0.26em]">
+                    RSVP öffnen <Icons.ArrowRight w={14} h={14} sw={2}/>
+                  </button>
+                  <button onClick={() => scrollTo("timeline")} className="btn-ghost inline-flex items-center justify-center rounded-full px-7 py-4 text-xs uppercase tracking-[0.24em]">
+                    Ablauf ansehen
+                  </button>
+                </div>
+              </div>
+            </Reveal>
+
+            <Reveal delay={220} className="hidden lg:block">
+              <div className="ph mt-20 aspect-[3/4] rotate-[2deg]">
+                <img src={HERO_IMAGE} alt="Izla und Gabriel nach dem Antrag" loading="lazy" />
+              </div>
+            </Reveal>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   return (
-    <section className="relative min-h-[100svh] w-full overflow-hidden flex flex-col items-center justify-center px-6 py-24 md:py-28">
-      {/* full-bleed hero image */}
-      <div className="absolute inset-0">
-        <img
-          src={HERO_IMAGE}
-          alt="Izla & Gabriel"
-          className="h-full w-full object-cover transition-transform duration-200 ease-out"
-          style={{ transform: `translateY(${scrollY * 0.16}px) scale(1.08)` }}
-          onError={(e) => { e.currentTarget.style.display = "none"; }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-espresso/55 via-espresso/35 to-espresso/70" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(62,44,32,.18)_55%,rgba(62,44,32,.55)_100%)]" />
-      </div>
+    <section className="hero-editorial relative min-h-[100svh] w-full overflow-hidden px-6 py-8 text-espresso md:px-10">
+      <div className="relative z-10 mx-auto flex min-h-[calc(100svh-4rem)] w-full max-w-7xl flex-col">
+        <div className="flex items-center justify-between gap-6 py-4 text-coffee">
+          <span className="font-script text-base italic tracking-[0.18em]">Piro <span className="ampersand">&amp;</span> Malki</span>
+          <Monogram compact className="hidden text-coffee sm:grid" />
+          <span className="font-micro text-right">Private Wedding<br className="hidden sm:block" /> 07.11.2026</span>
+        </div>
 
-      {/* top thin bar */}
-      <div className="absolute top-0 left-0 right-0 z-10 flex items-center justify-between px-6 md:px-12 py-6 text-cream/85">
-        <span className="font-script italic tracking-wide text-sm md:text-base">Piro <span className="ampersand">&amp;</span> Malki</span>
-        <span className="text-[11px] md:text-xs tracking-[0.3em] uppercase">07 · 11 · 2026</span>
-      </div>
+        <div className="grid flex-1 grid-cols-1 items-center gap-10 py-10 lg:grid-cols-[.92fr_1.08fr] lg:gap-14">
+          <div className="relative z-20 order-2 lg:order-1">
+            <Reveal delay={120}>
+              <p className="font-micro text-coffee">Wedding invitation / Augsburg & Elchingen</p>
+            </Reveal>
 
-      {/* centerpiece */}
-      <div className="relative z-10 flex w-full flex-col items-center text-center text-cream drop-shadow-[0_2px_18px_rgba(0,0,0,.28)]">
-        <Reveal delay={120}>
-          <p className="font-script italic text-cream/90 text-base md:text-lg tracking-[0.22em]">— Wir heiraten —</p>
-        </Reveal>
+            <Reveal delay={260} className="mt-7">
+              <h1 className="font-display text-[clamp(4.4rem,12vw,11rem)] font-medium leading-[.76] tracking-[-.08em]">
+                <span className="block">Izla</span>
+                <span className="block pl-[.28em] italic text-coffee">&amp;</span>
+                <span className="block pl-[.1em]">Gabriel</span>
+              </h1>
+            </Reveal>
 
-        <Reveal delay={320} className="mt-8 md:mt-10">
-          <h1 className="font-display text-[clamp(2.6rem,9vw,7.5rem)] leading-[0.95] font-medium tracking-tight">
-            <span className="block">Izla</span>
-            <span className="block ampersand text-[0.85em] my-1 md:my-2 text-sand">&amp;</span>
-            <span className="block">Gabriel</span>
-          </h1>
-        </Reveal>
+            <Reveal delay={430} className="mt-8 max-w-xl">
+              <p className="font-script text-2xl italic leading-snug text-coffee md:text-3xl">
+                Zwei Familien, ein Versprechen und ein Abend, den wir mit euch für immer behalten möchten.
+              </p>
+            </Reveal>
 
-        <Reveal delay={520} className="mt-8 md:mt-10 flex items-center gap-5">
-          <span className="hairline w-16 md:w-24"></span>
-          <span className="font-display text-base md:text-lg tracking-[0.35em] uppercase">7. November 2026</span>
-          <span className="hairline w-16 md:w-24"></span>
-        </Reveal>
+            <Reveal delay={560} className="mt-10 flex flex-col gap-3 sm:flex-row">
+              <button onClick={() => scrollTo("rsvp")} className="btn-primary inline-flex items-center justify-center gap-3 rounded-full px-7 py-4 text-xs uppercase tracking-[0.26em]">
+                RSVP öffnen <Icons.ArrowRight w={14} h={14} sw={2}/>
+              </button>
+              <button onClick={() => scrollTo("timeline")} className="btn-ghost inline-flex items-center justify-center rounded-full px-7 py-4 text-xs uppercase tracking-[0.24em]">
+                Ablauf ansehen
+              </button>
+            </Reveal>
+          </div>
 
-        <Reveal delay={680} className="mt-3 text-cream/90 text-sm md:text-base font-script italic tracking-[0.22em] uppercase">
-          Augsburg <span className="mx-2 opacity-60">·</span> Elchingen
-        </Reveal>
+          <Reveal delay={260} className="relative order-1 lg:order-2">
+            <div className="absolute -left-5 top-10 z-20 hidden hero-invite-card px-6 py-5 text-espresso md:block">
+              <p className="font-micro text-coffee">Save the date</p>
+              <div className="mt-3 flex items-end gap-3">
+                <span className="font-display text-6xl leading-none">07</span>
+                <span className="pb-2 font-script text-2xl italic text-coffee">November 2026</span>
+              </div>
+            </div>
 
-        <Reveal delay={850} className="mt-12 md:mt-14 flex items-center gap-4 md:gap-5 text-cream/85">
-          <span className="hairline w-10 md:w-14"></span>
-          <span className="font-script italic text-sm md:text-base">Familie Piro</span>
-          <span className="ampersand text-base md:text-lg text-sand">&amp;</span>
-          <span className="font-script italic text-sm md:text-base">Familie Malki</span>
-          <span className="hairline w-10 md:w-14"></span>
-        </Reveal>
+            <div className="hero-image-panel aspect-[4/5] min-h-[420px] md:aspect-[5/6] lg:min-h-[680px]">
+              <img
+                src={HERO_IMAGE}
+                alt="Izla & Gabriel"
+                className="h-full w-full object-cover transition-transform duration-200 ease-out"
+                style={{ transform: `translateY(${scrollY * 0.08}px) scale(1.045)` }}
+                onError={(e) => { e.currentTarget.style.display = "none"; }}
+              />
+              <div className="absolute bottom-0 left-0 right-0 z-20 p-6 text-cream md:p-9">
+                <p className="font-micro text-cream/75">Kirchliche Trauung und Hochzeitsfeier</p>
+                <p className="mt-3 font-display text-3xl leading-none md:text-5xl">7. November 2026</p>
+              </div>
+            </div>
 
-        <Reveal delay={1050} className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-3">
-          <button onClick={() => scrollTo("rsvp")}
-            className="hero-cta hero-cta-primary">
-            <span>RSVP öffnen</span>
-            <Icons.ArrowRight w={15} h={15} sw={2}/>
-          </button>
-          <button onClick={() => scrollTo("timeline")}
-            className="hero-cta hero-cta-secondary">
-            <span>Tagesablauf ansehen</span>
-          </button>
-        </Reveal>
-      </div>
+            <div className="absolute -right-4 bottom-10 z-20 hidden rounded-full bg-cream/90 p-3 shadow-[0_20px_50px_-32px_rgba(62,44,32,.8)] md:block">
+              <Monogram compact className="text-coffee" />
+            </div>
+          </Reveal>
+        </div>
 
-      {/* scroll cue */}
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 text-cream/75">
-        <span className="text-[10px] tracking-[0.4em] uppercase">scroll</span>
-        <div className="w-px h-10 bg-cream/45 animate-pulse"></div>
+        <div className="hidden items-end justify-between pb-4 text-coffee/75 md:flex">
+          <span className="font-script text-base italic tracking-[0.18em]">Familie Piro <span className="ampersand">&amp;</span> Familie Malki</span>
+          <div className="flex flex-col items-center gap-2">
+            <span className="text-[10px] uppercase tracking-[0.4em]">scroll</span>
+            <div className="h-10 w-px bg-coffee/35 animate-pulse"></div>
+          </div>
+          <span className="font-micro text-right">Augsburg / Elchingen</span>
+        </div>
       </div>
     </section>
   );
@@ -384,17 +521,14 @@ function CountdownCell({ value, label }) {
 function Countdown() {
   const { days, hours, minutes, seconds } = useCountdown(TARGET);
   return (
-    <section id="countdown" className="relative py-24 md:py-32 px-6">
+    <section id="countdown" className="section-shell relative py-24 md:py-32 px-6">
+      <span className="section-label">Countdown</span>
       <div className="mx-auto max-w-5xl text-center">
-        <Reveal>
-          <p className="font-script italic text-coffee text-base md:text-lg tracking-[0.18em]">— gemeinsam —</p>
-          <h2 className="mt-4 font-display text-4xl md:text-6xl text-espresso">Bis zum großen Tag</h2>
-          <div className="mx-auto mt-5 hairline w-40"></div>
-          <p className="mt-6 max-w-xl mx-auto text-coffee/90 leading-relaxed">
-            Wir können es kaum erwarten, diesen Moment mit euch zu teilen.
-            Nur noch ein wenig Geduld &mdash;
-          </p>
-        </Reveal>
+        <SectionIntro
+          eyebrow="gemeinsam"
+          title="Bis zum großen Tag"
+          text="Wir können es kaum erwarten, diesen Moment mit euch zu teilen. Nur noch ein wenig Geduld."
+        />
 
         <Reveal delay={200} className="mt-12 md:mt-14">
           <div className="flex items-stretch justify-center gap-3 md:gap-5">
@@ -423,34 +557,57 @@ const GALLERY = [
 
 function ProposalStory() {
   return (
-    <section className="relative py-24 md:py-32 px-6 bg-ivory/50">
+    <section className="section-shell relative overflow-hidden py-24 md:py-36 px-6 bg-ivory/50">
+      <span className="section-label">Antrag</span>
+      <span className="script-watermark right-[-2vw] top-24">Ja</span>
       <div className="mx-auto max-w-6xl">
-        <div className="grid grid-cols-1 lg:grid-cols-[0.9fr_1.1fr] gap-10 md:gap-14 items-center">
-          <Reveal>
-            <div className="relative">
-              <div className="ph aspect-[4/5]">
-                <img src="/images/antrag-umarmung.png" alt="Izla und Gabriel nach dem Antrag" loading="lazy" />
+        <div className="grid grid-cols-1 gap-10 lg:grid-cols-[.7fr_1.3fr] lg:gap-14">
+          <Reveal className="lg:pt-16">
+            <p className="editorial-kicker">unser antrag</p>
+            <h2 className="mt-5 max-w-xl font-display text-5xl md:text-7xl text-espresso leading-[.9] tracking-tight">
+              Der Moment, in dem alles begann
+            </h2>
+            <div className="magazine-rule mt-8 w-40"></div>
+            <p className="mt-8 text-ink/75 leading-relaxed">
+              Ein kleiner Tisch, zwei Stühle, Rosen, eine Steinmauer und dieser eine Moment, in dem die Welt kurz still wurde.
+            </p>
+            <div className="mt-10 grid grid-cols-2 gap-4 border-y border-sand/80 py-6 text-sm text-coffee/85">
+              <div>
+                <span className="font-micro block text-coffee/60">Kapitel</span>
+                <span className="mt-2 block font-display text-2xl text-espresso">01</span>
               </div>
-              <div className="hidden sm:block absolute -right-8 -bottom-8 w-44 md:w-56 card p-2 rotate-3 shadow-xl">
-                <div className="ph !shadow-none aspect-[4/5]">
-                  <img src="/images/antrag-picknick.png" alt="Picknicktisch beim Antrag" loading="lazy" />
-                </div>
+              <div>
+                <span className="font-micro block text-coffee/60">Versprechen</span>
+                <span className="mt-2 block font-display text-2xl text-espresso">Ja</span>
               </div>
             </div>
           </Reveal>
 
-          <Reveal delay={160}>
-            <p className="font-script italic text-coffee text-base md:text-lg tracking-[0.18em]">— unser antrag —</p>
-            <h2 className="mt-4 font-display text-4xl md:text-6xl text-espresso">Der Moment, in dem alles begann</h2>
-            <div className="mt-5 hairline w-40"></div>
-            <p className="mt-7 text-ink/75 leading-relaxed">
-              Ein kleiner Tisch, zwei Stühle, ein paar liebevolle Details und dieser eine Moment, der für immer bleibt.
-              Zwischen Steinmauer, Rosen und Herzklopfen wurde aus einem schönen Tag unser gemeinsames Versprechen.
-            </p>
-            <p className="mt-6 font-script italic text-coffee text-xl md:text-2xl leading-relaxed">
-              Aus einem Ja beim Antrag wird am 7. November unser Ja vor Gott und unseren Familien.
-            </p>
-          </Reveal>
+          <div className="relative">
+            <Reveal>
+              <div className="album-frame aspect-[5/4] w-full md:aspect-[16/11]">
+                <img src="/images/antrag-kniefall.png" alt="Der Antrag im Kniefall" loading="lazy" />
+                <span className="absolute left-5 top-5 z-20 photo-number bg-cream/90">01</span>
+                <span className="absolute bottom-5 right-5 z-20 hidden max-w-xs album-caption px-5 py-4 md:block">
+                  <span className="font-micro text-coffee">The proposal</span>
+                  <span className="mt-2 block font-script text-xl italic leading-snug text-espresso">
+                    Der Augenblick, der aus einem schönen Tag unser gemeinsames Versprechen gemacht hat.
+                  </span>
+                </span>
+              </div>
+            </Reveal>
+
+            <Reveal delay={180} className="mt-6 grid grid-cols-1 items-end gap-6 md:grid-cols-[.62fr_1fr]">
+              <div className="album-frame aspect-[4/5] md:-mt-20 md:ml-8">
+                <img src="/images/antrag-picknick.png" alt="Picknicktisch beim Antrag" loading="lazy" />
+              </div>
+              <div className="lux-panel ornament-corners p-7 md:p-9">
+                <p className="font-script italic text-coffee text-2xl md:text-3xl leading-relaxed">
+                  Aus einem Ja beim Antrag wird am 7. November unser Ja vor Gott und unseren Familien.
+                </p>
+              </div>
+            </Reveal>
+          </div>
         </div>
       </div>
     </section>
@@ -482,30 +639,82 @@ function Gallery() {
   const activeImage = active === null ? null : GALLERY[active];
 
   return (
-    <section id="gallery" className="relative py-24 md:py-32 px-6">
+    <section id="gallery" className="gallery-album section-shell relative overflow-hidden py-24 md:py-36 px-6">
+      <span className="section-label">Album</span>
+      <span className="script-watermark left-[-4vw] top-20">Love</span>
       <div className="mx-auto max-w-6xl">
-        <Reveal className="text-center mb-14 md:mb-20">
-          <p className="font-script italic text-coffee text-base md:text-lg tracking-[0.18em]">— erinnerungen —</p>
-          <h2 className="mt-4 font-display text-4xl md:text-6xl text-espresso">Fotogalerie</h2>
-          <div className="mx-auto mt-5 hairline w-40"></div>
+        <div className="mb-14 grid grid-cols-1 items-end gap-8 md:mb-20 md:grid-cols-[.9fr_1.1fr]">
+          <SectionIntro
+            eyebrow="erinnerungen"
+            title="Ein kleines Hochzeitsalbum vor dem großen Tag"
+            align="left"
+          />
+          <Reveal delay={120} className="max-w-xl text-coffee/90 leading-relaxed md:justify-self-end">
+            Diese Seite soll sich weniger wie eine Galerie und mehr wie ein privates Album anfühlen: einzelne Augenblicke, leise Details und viel Gefühl.
+          </Reveal>
+        </div>
+
+        <Reveal delay={100}>
+          <button type="button" onClick={() => setActive(0)} className="album-frame group block aspect-[5/4] w-full cursor-zoom-in text-left md:aspect-[16/9]">
+            <img src={GALLERY[0].src} alt={GALLERY[0].alt} loading="lazy" />
+            <span className="absolute left-5 top-5 z-20 photo-number bg-cream/90">01</span>
+            <span className="absolute bottom-5 left-5 right-5 z-20 album-caption max-w-lg px-5 py-4 md:left-auto">
+              <span className="font-micro text-coffee">Featured memory</span>
+              <span className="mt-2 block font-script text-xl italic leading-snug text-espresso md:text-2xl">
+                Kleine Augenblicke, große Gefühle und Erinnerungen, die uns bis zum Hochzeitstag begleiten.
+              </span>
+            </span>
+          </button>
         </Reveal>
 
-        {/* CSS columns masonry */}
-        <Reveal delay={100}>
-          <div className="columns-2 md:columns-4 gap-5 [column-fill:balance]">
-            {GALLERY.map((g, i) => (
-              <button key={i} type="button" onClick={() => setActive(i)}
-                   className="break-inside-avoid mb-5 ph block w-full cursor-zoom-in text-left"
-                   style={{ height: g.h }}>
-                <img src={g.src} alt={g.alt} loading="lazy" />
+        <Reveal delay={180} className="mt-8 contact-sheet p-3 md:p-5">
+          <div className="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-5">
+            {[1, 2, 3, 4].map((index) => (
+              <button key={GALLERY[index].src} type="button" onClick={() => setActive(index)}
+                className="album-frame group aspect-[4/5] cursor-zoom-in text-left">
+                <img src={GALLERY[index].src} alt={GALLERY[index].alt} loading="lazy" />
+                <span className="absolute bottom-3 left-3 z-20 photo-number bg-cream/90">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
               </button>
             ))}
           </div>
         </Reveal>
 
-        <Reveal delay={250} className="mt-14 text-center text-coffee/85 max-w-2xl mx-auto font-script italic text-lg md:text-xl leading-relaxed">
-          „Kleine Augenblicke, große Gefühle &mdash; Erinnerungen, die uns bis zum Hochzeitstag begleiten.“
-        </Reveal>
+        <div className="mt-10 grid grid-cols-1 gap-8 md:grid-cols-[.88fr_1.12fr] md:items-center">
+          <Reveal delay={220}>
+            <button type="button" onClick={() => setActive(5)} className="album-frame group block aspect-[4/5] w-full cursor-zoom-in text-left">
+              <img src={GALLERY[5].src} alt={GALLERY[5].alt} loading="lazy" />
+              <span className="absolute left-5 top-5 z-20 photo-number bg-cream/90">06</span>
+            </button>
+          </Reveal>
+
+          <Reveal delay={300}>
+            <div className="grid grid-cols-1 gap-6">
+              <div className="lux-panel ornament-corners p-8 md:p-10">
+                <p className="font-micro text-coffee">Album note</p>
+                <p className="mt-5 font-display text-3xl leading-tight text-espresso md:text-5xl">
+                  Nicht jedes Bild muss laut sein. Manche bleiben, weil sie leise sind.
+                </p>
+                <p className="mt-6 text-ink/70 leading-relaxed">
+                  Genau so soll die Galerie wirken: nicht wie ein Foto-Grid, sondern wie eine kleine, persönliche Strecke mit Momenten, Details und Atmosphäre.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-2 gap-5">
+                {[6, 7].map((index) => (
+                  <button key={GALLERY[index].src} type="button" onClick={() => setActive(index)}
+                    className="album-frame group aspect-[4/3] cursor-zoom-in text-left">
+                    <img src={GALLERY[index].src} alt={GALLERY[index].alt} loading="lazy" />
+                    <span className="absolute bottom-3 left-3 z-20 photo-number bg-cream/90">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          </Reveal>
+        </div>
       </div>
 
       {activeImage && (
@@ -574,50 +783,48 @@ function Timeline() {
   const progress = useScrollProgress(ref);
 
   return (
-    <section id="timeline" ref={ref} className="relative py-24 md:py-32 px-6">
-      <div className="mx-auto max-w-3xl">
-        <Reveal className="text-center mb-16">
-          <p className="font-script italic text-coffee text-base md:text-lg tracking-[0.18em]">— ablauf des tages —</p>
-          <h2 className="mt-4 font-display text-4xl md:text-6xl text-espresso">7. November 2026</h2>
-          <div className="mx-auto mt-5 hairline w-40"></div>
-        </Reveal>
+    <section id="timeline" ref={ref} className="section-shell relative overflow-hidden py-24 md:py-36 px-6">
+      <span className="section-label">Ablauf</span>
+      <div className="mx-auto max-w-5xl">
+        <div className="mb-16 grid grid-cols-1 items-end gap-8 md:grid-cols-[.9fr_1.1fr]">
+          <SectionIntro
+            eyebrow="ablauf des tages"
+            title="7. November 2026"
+            align="left"
+          />
+          <Reveal delay={120} className="max-w-xl text-coffee/90 leading-relaxed md:justify-self-end">
+            <p>
+              Ein klarer Überblick über den Tag: von den ersten Familienmomenten in Augsburg bis zur Feier in Elchingen.
+            </p>
+          </Reveal>
+        </div>
 
-        <ol className="relative">
-          {/* vertical line */}
-          <span className="absolute left-7 md:left-1/2 md:-translate-x-1/2 top-2 bottom-2 w-px"
-                style={{ background: "linear-gradient(180deg, transparent, #D8C9AE 12%, #D8C9AE 88%, transparent)" }} />
-          <span className="absolute left-7 md:left-1/2 md:-translate-x-1/2 top-2 w-px bg-coffee transition-[height] duration-300 ease-out"
-                style={{ height: `${progress * 100}%` }} />
+        <ol className="relative border-l border-sand/90 md:ml-28">
+          <span
+            className="absolute left-[-1px] top-0 w-px bg-coffee transition-[height] duration-300 ease-out"
+            style={{ height: `${progress * 100}%` }}
+          />
           {TIMELINE.map((t, i) => {
             const IconComp = Icons[t.icon];
-            const left = i % 2 === 0;
             return (
               <Reveal as="li" key={i} delay={i * 120}
-                className={`relative pl-20 md:pl-0 md:grid md:grid-cols-2 md:gap-12 mb-12 last:mb-0`}>
-                {/* dot */}
-                <span className="absolute left-7 md:left-1/2 md:-translate-x-1/2 top-2 -translate-x-1/2
-                                 h-4 w-4 rounded-full bg-coffee ring-4 ring-cream pulse-dot" />
-
-                {/* card column */}
-                <div className={`md:col-start-${left ? "1" : "2"} ${left ? "md:pr-10 md:text-right" : "md:pl-10"}`}>
-                  <div className="card p-6 inline-block w-full md:w-auto md:max-w-sm">
-                    <div className={`flex items-center gap-3 ${left ? "md:flex-row-reverse md:justify-start" : ""}`}>
-                      <div className="grid place-items-center h-10 w-10 rounded-full bg-sand text-espresso shadow-sm">
-                        <IconComp w={18} h={18} sw={1.6} />
-                      </div>
-                      <div>
-                        <div className="font-display text-2xl text-espresso leading-none">{t.time}</div>
-                        <div className="font-script italic text-coffee text-sm tracking-wide">Uhr</div>
-                      </div>
-                    </div>
-                    <h3 className="mt-4 font-display text-xl md:text-2xl text-espresso">{t.title}</h3>
-                    <p className="mt-1 text-sm text-coffee/85">{t.sub}</p>
-                    {t.note && <p className="mt-3 text-[13.5px] leading-relaxed text-ink/75">{t.note}</p>}
-                  </div>
+                className="relative grid grid-cols-1 gap-5 pb-12 pl-8 last:pb-0 md:grid-cols-[180px_1fr] md:gap-10 md:pl-12">
+                <span className="absolute -left-[9px] top-2 z-10 grid h-4 w-4 place-items-center rounded-full bg-coffee ring-8 ring-cream" />
+                <div>
+                  <p className="font-display text-5xl leading-none text-espresso md:text-6xl">{t.time}</p>
+                  <p className="mt-1 font-script text-lg italic tracking-wide text-coffee">Uhr</p>
                 </div>
-
-                {/* spacer column on the other side (desktop) */}
-                <div className={`hidden md:block md:col-start-${left ? "2" : "1"}`}></div>
+                <article className="border-b border-sand/80 pb-10">
+                  <div className="mb-4 flex items-center gap-3 text-coffee">
+                    <span className="grid h-10 w-10 place-items-center rounded-full bg-sand/80 text-espresso">
+                    <IconComp w={20} h={20} sw={1.6} />
+                  </span>
+                    <span className="font-micro">Station {String(i + 1).padStart(2, "0")}</span>
+                  </div>
+                  <h3 className="font-display text-3xl leading-tight text-espresso md:text-4xl">{t.title}</h3>
+                  <p className="mt-3 max-w-xl text-sm leading-relaxed text-coffee/85">{t.sub}</p>
+                  {t.note && <p className="mt-4 max-w-xl text-[13.5px] leading-relaxed text-ink/75">{t.note}</p>}
+                </article>
               </Reveal>
             );
           })}
@@ -629,16 +836,15 @@ function Timeline() {
 
 function VenueMaps() {
   return (
-    <section id="locations" className="relative py-24 md:py-32 px-6 bg-ivory/50">
+    <section id="locations" className="section-shell relative py-24 md:py-36 px-6 bg-ivory/50">
+      <span className="section-label">Orte</span>
       <div className="mx-auto max-w-6xl">
-        <Reveal className="text-center mb-14">
-          <p className="font-script italic text-coffee text-base md:text-lg tracking-[0.18em]">— alle orte —</p>
-          <h2 className="mt-4 font-display text-4xl md:text-6xl text-espresso">Anfahrt &amp; Locations</h2>
-          <div className="mx-auto mt-5 hairline w-40"></div>
-          <p className="mt-6 max-w-xl mx-auto text-coffee/90">
-            Öffnet die Adresse direkt in Google Maps und plant eure Route ohne langes Suchen.
-          </p>
-        </Reveal>
+        <SectionIntro
+          eyebrow="alle orte"
+          title="Anfahrt & Locations"
+          text="Öffnet die Adresse direkt in Google Maps und plant eure Route ohne langes Suchen."
+          className="mb-14 max-w-2xl"
+        />
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
           {LOCATIONS.map((location, i) => (
@@ -650,7 +856,7 @@ function VenueMaps() {
                   loading="lazy"
                 />
               </div>
-              <div className="p-6">
+              <div className="p-6 md:p-7">
                 <div className="flex items-start justify-between gap-4">
                   <div>
                     <p className="text-xs uppercase tracking-[0.22em] text-coffee/80">{location.time}</p>
@@ -692,16 +898,15 @@ const HOTELS = [
 
 function Hotels() {
   return (
-    <section id="hotels" className="relative py-24 md:py-32 px-6 bg-ivory/50">
+    <section id="hotels" className="section-shell relative py-24 md:py-36 px-6 bg-ivory/50">
+      <span className="section-label">Stay</span>
       <div className="mx-auto max-w-6xl">
-        <Reveal className="text-center mb-14">
-          <p className="font-script italic text-coffee text-base md:text-lg tracking-[0.18em]">— bleibt bei uns —</p>
-          <h2 className="mt-4 font-display text-4xl md:text-6xl text-espresso">Unterkünfte</h2>
-          <div className="mx-auto mt-5 hairline w-40"></div>
-          <p className="mt-6 max-w-xl mx-auto text-coffee/90">
-            Für beide Familien werden Zimmer reserviert. Weitere Details teilen wir rechtzeitig mit euch.
-          </p>
-        </Reveal>
+        <SectionIntro
+          eyebrow="bleibt bei uns"
+          title="Unterkünfte"
+          text="Für beide Familien werden Zimmer reserviert. Weitere Details teilen wir rechtzeitig mit euch."
+          className="mb-14 max-w-2xl"
+        />
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 max-w-4xl mx-auto">
           {HOTELS.map((h, i) => (
@@ -758,13 +963,14 @@ const FAQS = [
 
 function InfoSections() {
   return (
-    <section id="info" className="relative py-24 md:py-32 px-6">
+    <section id="info" className="section-shell relative py-24 md:py-36 px-6">
+      <span className="section-label">Details</span>
       <div className="mx-auto max-w-6xl">
-        <Reveal className="text-center mb-14">
-          <p className="font-script italic text-coffee text-base md:text-lg tracking-[0.18em]">— gut zu wissen —</p>
-          <h2 className="mt-4 font-display text-4xl md:text-6xl text-espresso">Infos für euch</h2>
-          <div className="mx-auto mt-5 hairline w-40"></div>
-        </Reveal>
+        <SectionIntro
+          eyebrow="gut zu wissen"
+          title="Infos für euch"
+          className="mb-14 max-w-2xl"
+        />
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
           <Reveal className="card p-7 md:p-9">
@@ -899,10 +1105,11 @@ function RSVP() {
 
   if (submitted) {
     return (
-      <section id="rsvp" className="relative py-24 md:py-32 px-6">
+      <section id="rsvp" className="section-shell relative py-24 md:py-36 px-6">
         {state.attending === "yes" && <Confetti />}
         <div className="mx-auto max-w-2xl">
-          <Reveal className="card p-10 md:p-14 text-center">
+          <Reveal className="lux-panel ornament-corners p-10 md:p-14 text-center">
+            <Monogram className="mx-auto mb-8 text-coffee" />
             <div className="mx-auto h-14 w-14 rounded-full bg-sand grid place-items-center text-espresso">
               <Icons.Check w={26} h={26} sw={2}/>
             </div>
@@ -924,17 +1131,24 @@ function RSVP() {
   }
 
   return (
-    <section id="rsvp" className="relative py-24 md:py-32 px-6">
-      <div className="mx-auto max-w-2xl">
-        <Reveal className="text-center mb-12">
-          <p className="font-script italic text-coffee text-base md:text-lg tracking-[0.18em]">— u. a. w. g. —</p>
-          <h2 className="mt-4 font-display text-4xl md:text-6xl text-espresso">Um Rückantwort wird gebeten</h2>
-          <div className="mx-auto mt-5 hairline w-40"></div>
-          <p className="mt-6 text-coffee/90">Bitte gebt uns Bescheid, ob ihr dabei seid.</p>
-        </Reveal>
+    <section id="rsvp" className="section-shell relative overflow-hidden py-24 md:py-36 px-6">
+      <span className="section-label">RSVP</span>
+      <span className="script-watermark right-[-5vw] top-20">RSVP</span>
+      <div className="mx-auto grid max-w-6xl grid-cols-1 items-start gap-10 lg:grid-cols-[.82fr_1.18fr]">
+        <div className="lg:sticky lg:top-28">
+          <SectionIntro
+            eyebrow="u. a. w. g."
+            title="Um Rückantwort wird gebeten"
+            text="Bitte gebt uns Bescheid, ob ihr dabei seid. Das hilft uns bei Sitzplan, Unterkunft und Ablauf."
+            align="left"
+          />
+          <Reveal delay={160} className="mt-10 hidden lg:block">
+            <Monogram className="text-coffee/80" />
+          </Reveal>
+        </div>
 
         <Reveal>
-          <form className="card p-7 md:p-10" onSubmit={(e) => { e.preventDefault(); if (valid) setSubmitted(true); }}>
+          <form className="lux-panel ornament-corners p-7 md:p-10" onSubmit={(e) => { e.preventDefault(); if (valid) setSubmitted(true); }}>
             <div className="mb-10 flex items-center gap-3">
               {[1, 2, 3].map((n) => (
                 <React.Fragment key={n}>
@@ -945,7 +1159,7 @@ function RSVP() {
             </div>
 
             {step === 1 && (
-              <>
+              <div key="step-1" className="rsvp-step">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <FieldLabel n="01">Vorname</FieldLabel>
@@ -987,11 +1201,11 @@ function RSVP() {
                     ))}
                   </div>
                 </div>
-              </>
+              </div>
             )}
 
             {step === 2 && (
-              <>
+              <div key="step-2" className="rsvp-step">
                 <FieldLabel n="04">Begleitpersonen</FieldLabel>
                 <div className="relative">
                   <select value={state.plusOnes}
@@ -1078,11 +1292,11 @@ function RSVP() {
                     ))}
                   </div>
                 </div>
-              </>
+              </div>
             )}
 
             {step === 3 && (
-              <div>
+              <div key="step-3" className="rsvp-step">
                 <FieldLabel n="09">Zusammenfassung</FieldLabel>
                 {state.attending === "no" ? (
                   <p className="text-ink/75 leading-relaxed">Schade, dass ihr nicht dabei sein könnt.</p>
@@ -1196,9 +1410,9 @@ function App() {
     <div className="relative">
       <FloatingNav/>
       <Hero heroLayout={t.heroLayout}/>
-      {t.showCountdown && <Countdown/>}
       <ProposalStory/>
       {t.showGallery && <Gallery/>}
+      {t.showCountdown && <Countdown/>}
       {t.showTimeline && <Timeline/>}
       {t.showTimeline && <VenueMaps/>}
       {t.showHotels && <Hotels/>}
@@ -1214,6 +1428,9 @@ function App() {
         <TweakSelect label="Überschrift-Font" value={t.headingFont}
           options={["Playfair Display","Cormorant Garamond","Cormorant"]}
           onChange={(v) => setTweak("headingFont", v)}/>
+        <TweakSelect label="Hero-Konzept" value={t.heroLayout}
+          options={["editorial","cinematic","invitation"]}
+          onChange={(v) => setTweak("heroLayout", v)}/>
 
         <TweakSection label="Sektionen"/>
         <TweakToggle label="Countdown" value={t.showCountdown} onChange={(v) => setTweak("showCountdown", v)}/>
