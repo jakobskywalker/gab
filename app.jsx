@@ -402,25 +402,25 @@ function Hero({ heroLayout = "editorial" }) {
   }
 
   return (
-    <section className="hero-editorial relative min-h-[100svh] w-full overflow-hidden px-6 py-8 text-espresso md:px-10">
-      <div className="relative z-10 mx-auto flex min-h-[calc(100svh-4rem)] w-full max-w-7xl flex-col">
-        <div className="flex items-center justify-between gap-6 py-4 text-coffee">
-          <span className="font-script text-base italic tracking-[0.18em]">Piro <span className="ampersand">&amp;</span> Malki</span>
+    <section className="hero-editorial relative min-h-[100svh] w-full overflow-hidden px-5 py-5 text-espresso md:px-10 md:py-8">
+      <div className="relative z-10 mx-auto flex min-h-[calc(100svh-2.5rem)] w-full max-w-7xl flex-col md:min-h-[calc(100svh-4rem)]">
+        <div className="flex items-center justify-center gap-6 py-3 text-coffee md:justify-between md:py-4">
+          <span className="font-script text-base italic tracking-[0.14em] md:tracking-[0.18em]">Piro <span className="ampersand">&amp;</span> Malki</span>
           <Monogram compact className="hidden text-coffee sm:grid" />
-          <span className="font-micro text-right">Private Wedding<br className="hidden sm:block" /> 07.11.2026</span>
+          <span className="hidden font-micro text-right md:block">Private Wedding<br /> 07.11.2026</span>
         </div>
 
-        <div className="grid flex-1 grid-cols-1 items-center gap-10 py-10 lg:grid-cols-[.92fr_1.08fr] lg:gap-14">
+        <div className="grid flex-1 grid-cols-1 items-center gap-8 py-8 md:gap-10 md:py-10 lg:grid-cols-[.92fr_1.08fr] lg:gap-14">
           <div className="relative z-20 order-2 lg:order-1">
             <Reveal delay={120}>
-              <p className="font-micro text-coffee">Wedding invitation / Augsburg & Elchingen</p>
+              <p className="font-micro text-coffee">7. November 2026 / Augsburg & Elchingen</p>
             </Reveal>
 
             <Reveal delay={260} className="mt-7">
-              <h1 className="font-display text-[clamp(4.4rem,12vw,11rem)] font-medium leading-[.76] tracking-[-.08em]">
-                <span className="block">Izla</span>
-                <span className="block pl-[.28em] italic text-coffee">&amp;</span>
-                <span className="block pl-[.1em]">Gabriel</span>
+              <h1 className="whitespace-nowrap font-display text-[clamp(3.2rem,16vw,4.8rem)] font-medium leading-[.86] tracking-[-.08em] md:whitespace-normal md:text-[clamp(4.4rem,12vw,11rem)] md:leading-[.76]">
+                <span className="inline md:block">Izla</span>
+                <span className="inline px-2 italic text-coffee md:block md:px-0 md:pl-[.28em]">&amp;</span>
+                <span className="inline md:block md:pl-[.1em]">Gabriel</span>
               </h1>
             </Reveal>
 
@@ -430,7 +430,7 @@ function Hero({ heroLayout = "editorial" }) {
               </p>
             </Reveal>
 
-            <Reveal delay={560} className="mt-10 flex flex-col gap-3 sm:flex-row">
+            <Reveal delay={560} className="mt-9 flex flex-col gap-3 sm:flex-row md:mt-10">
               <button onClick={() => scrollTo("rsvp")} className="btn-primary inline-flex items-center justify-center gap-3 rounded-full px-7 py-4 text-xs uppercase tracking-[0.26em]">
                 RSVP öffnen <Icons.ArrowRight w={14} h={14} sw={2}/>
               </button>
@@ -449,7 +449,7 @@ function Hero({ heroLayout = "editorial" }) {
               </div>
             </div>
 
-            <div className="hero-image-panel aspect-[4/5] min-h-[420px] md:aspect-[5/6] lg:min-h-[680px]">
+            <div className="hero-image-panel aspect-[4/5] min-h-[360px] md:aspect-[5/6] md:min-h-[420px] lg:min-h-[680px]">
               <img
                 src={HERO_IMAGE}
                 alt="Izla & Gabriel"
