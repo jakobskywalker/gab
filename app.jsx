@@ -422,11 +422,11 @@ function Hero({ heroLayout = "editorial" }) {
               Kirchliche Trauung und Hochzeitsfeier mit unseren Familien.
             </p>
             <p className="mt-4 font-micro text-coffee/78 md:mt-5">Augsburg & Elchingen</p>
-            <div className="mx-auto mt-7 flex w-full max-w-[22rem] flex-col justify-center gap-2.5 sm:flex-row md:mt-9 md:max-w-none lg:mx-0 lg:justify-start">
-              <button onClick={() => scrollTo("rsvp")} className="btn-primary inline-flex items-center justify-center gap-3 rounded-full px-6 py-3.5 text-xs uppercase tracking-[0.24em] md:px-7 md:py-4 md:tracking-[0.26em]">
+            <div className="mx-auto mt-7 flex w-full max-w-[19.5rem] flex-col justify-center gap-2.5 px-2 sm:max-w-[22rem] sm:flex-row sm:px-0 md:mt-9 md:max-w-none lg:mx-0 lg:justify-start">
+              <button onClick={() => scrollTo("rsvp")} className="btn-primary inline-flex w-full items-center justify-center gap-3 rounded-full px-5 py-3.5 text-[11px] uppercase tracking-[0.22em] sm:w-auto md:px-7 md:py-4 md:text-xs md:tracking-[0.26em]">
                 RSVP öffnen <Icons.ArrowRight w={14} h={14} sw={2}/>
               </button>
-              <button onClick={() => scrollTo("timeline")} className="btn-ghost inline-flex items-center justify-center rounded-full px-6 py-3.5 text-xs uppercase tracking-[0.22em] md:px-7 md:py-4 md:tracking-[0.24em]">
+              <button onClick={() => scrollTo("timeline")} className="btn-ghost inline-flex w-full items-center justify-center rounded-full px-5 py-3.5 text-[11px] uppercase tracking-[0.2em] sm:w-auto md:px-7 md:py-4 md:text-xs md:tracking-[0.24em]">
                 Ablauf ansehen
               </button>
             </div>
