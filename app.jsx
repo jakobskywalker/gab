@@ -422,11 +422,11 @@ function Hero({ heroLayout = "editorial" }) {
               Kirchliche Trauung und Hochzeitsfeier mit unseren Familien.
             </p>
             <p className="mt-4 font-micro text-coffee/78 md:mt-5">Augsburg & Elchingen</p>
-            <div className="mt-7 flex flex-col justify-center gap-3 sm:flex-row md:mt-9 lg:justify-start">
-              <button onClick={() => scrollTo("rsvp")} className="btn-primary inline-flex items-center justify-center gap-3 rounded-full px-7 py-4 text-xs uppercase tracking-[0.26em]">
+            <div className="mx-auto mt-7 flex w-full max-w-[22rem] flex-col justify-center gap-2.5 sm:flex-row md:mt-9 md:max-w-none lg:mx-0 lg:justify-start">
+              <button onClick={() => scrollTo("rsvp")} className="btn-primary inline-flex items-center justify-center gap-3 rounded-full px-6 py-3.5 text-xs uppercase tracking-[0.24em] md:px-7 md:py-4 md:tracking-[0.26em]">
                 RSVP öffnen <Icons.ArrowRight w={14} h={14} sw={2}/>
               </button>
-              <button onClick={() => scrollTo("timeline")} className="btn-ghost inline-flex items-center justify-center rounded-full px-7 py-4 text-xs uppercase tracking-[0.24em]">
+              <button onClick={() => scrollTo("timeline")} className="btn-ghost inline-flex items-center justify-center rounded-full px-6 py-3.5 text-xs uppercase tracking-[0.22em] md:px-7 md:py-4 md:tracking-[0.24em]">
                 Ablauf ansehen
               </button>
             </div>
@@ -460,7 +460,7 @@ function useCountdown(target) {
   return { days, hours, minutes };
 }
 
-function CountdownCell({ value, label }) {
+function CountdownCell({ value, label, animateTick = true }) {
   // re-mount key on value change so animation triggers
   return (
     <div className="flex-1 min-w-[78px] md:min-w-[120px]">
@@ -468,7 +468,7 @@ function CountdownCell({ value, label }) {
                       h-24 md:h-32 px-2 overflow-hidden">
         <div className="pointer-events-none absolute inset-x-0 top-0 h-px" style={{background:"linear-gradient(90deg,transparent,#D8C9AE,transparent)"}}/>
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px" style={{background:"linear-gradient(90deg,transparent,#D8C9AE,transparent)"}}/>
-        <span key={value} className="tick font-display text-espresso text-4xl md:text-6xl font-medium tabular-nums">
+        <span key={animateTick ? value : label} className={`${animateTick ? "tick " : ""}font-display text-espresso text-4xl md:text-6xl font-medium tabular-nums`}>
           {String(value).padStart(2, "0")}
         </span>
       </div>
@@ -479,10 +479,86 @@ function CountdownCell({ value, label }) {
   );
 }
 
+function AnimatedCountdownCell({ value, label, isVisible, delay = 0 }) {
+  const [displayValue, setDisplayValue] = useState(0);
+  const [isSettled, setIsSettled] = useState(false);
+  const hasAnimated = useRef(false);
+
+  useEffect(() => {
+    if (!isVisible || hasAnimated.current) {
+      if (!hasAnimated.current) return;
+      setDisplayValue(value);
+      setIsSettled(true);
+      return;
+    }
+
+    hasAnimated.current = true;
+
+    if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) {
+      setDisplayValue(value);
+      setIsSettled(true);
+      return;
+    }
+
+    const timeout = window.setTimeout(() => {
+      const duration = 2400;
+      const startedAt = performance.now();
+      let lastValue = -1;
+
+      const step = (now) => {
+        const progress = Math.min(1, (now - startedAt) / duration);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const nextValue = Math.round(value * eased);
+
+        if (nextValue !== lastValue) {
+          lastValue = nextValue;
+          setDisplayValue(nextValue);
+        }
+
+        if (progress < 1) {
+          requestAnimationFrame(step);
+        } else {
+          setDisplayValue(value);
+          setIsSettled(true);
+        }
+      };
+
+      requestAnimationFrame(step);
+    }, delay);
+
+    return () => window.clearTimeout(timeout);
+  }, [delay, isVisible, value]);
+
+  return (
+    <div className={`${isVisible ? "count-up-cell is-visible" : "count-up-cell"} ${isSettled ? "is-settled" : ""}`}>
+      <CountdownCell value={displayValue} label={label} animateTick={isSettled} />
+      <span className={isSettled ? "count-up-glow is-done" : "count-up-glow"} aria-hidden="true" />
+    </div>
+  );
+}
+
 function Countdown() {
   const { days, hours, minutes } = useCountdown(TARGET);
+  const ref = useRef(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const node = ref.current;
+    if (!node) return;
+
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        setIsVisible(true);
+        observer.disconnect();
+      }
+    }, { threshold: 0.35 });
+
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section id="countdown" className="section-shell relative py-24 md:py-32 px-6">
+    <section id="countdown" ref={ref} className="section-shell relative py-24 md:py-32 px-6">
       <span className="section-label">Countdown</span>
       <div className="mx-auto max-w-5xl text-center">
         <SectionIntro
@@ -493,9 +569,9 @@ function Countdown() {
 
         <Reveal delay={200} className="mt-12 md:mt-14">
           <div className="flex items-stretch justify-center gap-3 md:gap-5">
-            <CountdownCell value={days} label="Tage" />
-            <CountdownCell value={hours} label="Stunden" />
-            <CountdownCell value={minutes} label="Minuten" />
+            <AnimatedCountdownCell value={days} label="Tage" isVisible={isVisible} delay={180} />
+            <AnimatedCountdownCell value={hours} label="Stunden" isVisible={isVisible} delay={360} />
+            <AnimatedCountdownCell value={minutes} label="Minuten" isVisible={isVisible} delay={540} />
           </div>
         </Reveal>
       </div>
@@ -616,11 +692,15 @@ function VenueMaps() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
           {LOCATIONS.map((location, i) => (
             <Reveal key={location.title} delay={i * 90} className="card overflow-hidden">
-              <div className="ph !rounded-none !shadow-none aspect-[16/10]">
+              <div
+                className={`ph !rounded-none !shadow-none aspect-[16/10] ${location.imageFit === "contain" ? "location-image-contain" : ""}`}
+                style={location.imageFit === "contain" ? { backgroundImage: `url(${location.image})` } : undefined}
+              >
                 <img
                   src={location.image}
                   alt={location.imageAlt}
                   loading="lazy"
+                  className={location.imageFit === "contain" ? "location-image-contain-main" : ""}
                 />
               </div>
               <div className="p-6 md:p-7">
