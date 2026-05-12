@@ -394,43 +394,41 @@ function Hero({ heroLayout = "editorial" }) {
   }
 
   return (
-    <section className="hero-cover relative min-h-[100svh] w-full overflow-hidden px-5 py-5 text-espresso md:px-10 md:py-8">
-      <div className="relative z-10 mx-auto flex min-h-[calc(100svh-2.5rem)] w-full max-w-7xl flex-col md:min-h-[calc(100svh-4rem)]">
-        <div className="flex items-center justify-between py-3 text-coffee md:py-4">
-          <span className="font-script text-base italic tracking-[0.16em]">Piro <span className="ampersand">&amp;</span> Malki</span>
-          <span className="hidden font-micro text-right md:block">07.11.2026<br />Augsburg & Elchingen</span>
-        </div>
-
-        <div className="grid flex-1 grid-cols-1 items-center gap-10 py-10 md:py-12 lg:grid-cols-[.82fr_1.18fr] lg:gap-16 xl:gap-24">
-          <Reveal delay={160} className="hero-cover-content order-2 mx-auto max-w-xl text-center lg:order-1 lg:mx-0 lg:text-left">
+    <section className="hero-cover relative w-full overflow-hidden px-5 py-8 text-espresso md:min-h-[100svh] md:px-10 md:py-8">
+      <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col md:min-h-[calc(100svh-4rem)]">
+        <div className="grid flex-1 grid-cols-1 items-center gap-7 py-4 md:gap-10 md:py-12 lg:grid-cols-[minmax(0,.86fr)_minmax(420px,1.14fr)] lg:grid-rows-[auto_auto] lg:gap-x-16 lg:gap-y-8 xl:gap-x-24">
+          <Reveal delay={160} className="hero-cover-content mx-auto max-w-xl text-center lg:col-start-1 lg:row-start-1 lg:mx-0 lg:self-end lg:text-left">
             <p className="font-micro text-coffee">Samstag, 07. November 2026</p>
-            <h1 className="hero-cover-title mt-12 text-espresso md:mt-14">
+            <h1 className="hero-cover-title mt-8 text-espresso md:mt-12">
               Izla <span className="ampersand">&amp;</span> Gabriel
             </h1>
-            <div className="hero-cover-rule mx-auto mt-8 w-full max-w-md lg:mx-0" />
-            <p className="mt-8 font-script text-2xl italic leading-snug text-coffee md:text-4xl">
+            <div className="hero-cover-rule mx-auto mt-5 hidden w-full max-w-sm md:mt-8 md:block md:max-w-md lg:mx-0" />
+          </Reveal>
+
+          <Reveal delay={260} className="lg:col-start-2 lg:row-span-2 lg:row-start-1">
+            <div className="hero-portrait-card mx-auto aspect-[3/4] w-[88%] max-w-[22rem] md:aspect-[4/5] md:w-full md:max-w-[36rem] lg:min-h-[670px] lg:max-w-none">
+              <img
+                src={HERO_IMAGE}
+                alt="Izla & Gabriel"
+                className="hero-cover-image h-full w-full object-cover object-[50%_42%] transition-transform duration-200 ease-out"
+                style={{ transform: `translateY(${scrollY * 0.025}px) scale(1.008)` }}
+                onError={(e) => { e.currentTarget.style.display = "none"; }}
+              />
+            </div>
+          </Reveal>
+
+          <Reveal delay={360} className="mx-auto max-w-xl text-center lg:col-start-1 lg:row-start-2 lg:mx-0 lg:self-start lg:text-left">
+            <p className="font-script text-[1.55rem] italic leading-snug text-coffee md:text-4xl">
               Kirchliche Trauung und Hochzeitsfeier mit unseren Familien.
             </p>
-            <p className="mt-5 font-micro text-coffee/78">Augsburg & Elchingen</p>
-            <div className="mt-10 flex flex-col justify-center gap-3 sm:flex-row lg:justify-start">
+            <p className="mt-4 font-micro text-coffee/78 md:mt-5">Augsburg & Elchingen</p>
+            <div className="mt-7 flex flex-col justify-center gap-3 sm:flex-row md:mt-9 lg:justify-start">
               <button onClick={() => scrollTo("rsvp")} className="btn-primary inline-flex items-center justify-center gap-3 rounded-full px-7 py-4 text-xs uppercase tracking-[0.26em]">
                 RSVP öffnen <Icons.ArrowRight w={14} h={14} sw={2}/>
               </button>
               <button onClick={() => scrollTo("timeline")} className="btn-ghost inline-flex items-center justify-center rounded-full px-7 py-4 text-xs uppercase tracking-[0.24em]">
                 Ablauf ansehen
               </button>
-            </div>
-          </Reveal>
-
-          <Reveal delay={260} className="order-1 lg:order-2">
-            <div className="hero-portrait-card mx-auto aspect-[4/5] min-h-[440px] w-full max-w-[36rem] lg:min-h-[670px] lg:max-w-none">
-              <img
-                src={HERO_IMAGE}
-                alt="Izla & Gabriel"
-                className="hero-cover-image h-full w-full object-cover object-center transition-transform duration-200 ease-out"
-                style={{ transform: `translateY(${scrollY * 0.035}px) scale(1.02)` }}
-                onError={(e) => { e.currentTarget.style.display = "none"; }}
-              />
             </div>
           </Reveal>
         </div>
@@ -509,7 +507,7 @@ function Countdown() {
 const TIMELINE = [
   { time: "13:00", title: "Teqimo Bräutigam", sub: "Zur Aumühle 9, 86153 Augsburg", icon: "Sparkles", note: "" },
   { time: "13:45", title: "Teqimo Braut", sub: "Vienna House Easy, Am Technologiezentrum 1, 86159 Augsburg", icon: "Heart", note: "" },
-  { time: "14:30", title: "Kirchliche Trauung", sub: "Syrisch-Orthodoxe Kirche von Antiochien, Zusamstraße 17, 86165 Augsburg", icon: "Heart", note: "Bitte pünktlich erscheinen." },
+  { time: "14:45", title: "Kirchliche Trauung", sub: "Syrisch-Orthodoxe Kirche von Antiochien, Zusamstraße 17, 86165 Augsburg", icon: "Heart", note: "Bitte pünktlich erscheinen." },
   { time: "17:00", title: "Hochzeitsfeier", sub: "MAVI Event & Location (Rüya Saal), Daimlerstraße 3, 89275 Elchingen", icon: "Music", note: "Ausreichend Parkplätze vorhanden." },
 ];
 
@@ -530,7 +528,7 @@ const LOCATIONS = [
   },
   {
     title: "Kirchliche Trauung",
-    time: "14:30 Uhr",
+    time: "14:45 Uhr",
     address: "Syrisch-Orthodoxe Kirche von Antiochien, Zusamstraße 17, 86165 Augsburg",
     image: "/images/location-teqimo-braeutigam.png",
     imageAlt: "Kirche der Trauung",

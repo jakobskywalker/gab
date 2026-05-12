@@ -310,10 +310,11 @@
   }
   .hero-cover-title {
     font-family: 'Great Vibes', cursive;
-    font-size: clamp(5.2rem, 13vw, 11rem);
+    font-size: clamp(3.9rem, 14vw, 5.4rem);
     font-weight: 400;
     letter-spacing: -.02em;
-    line-height: .88;
+    line-height: .95;
+    white-space: nowrap;
   }
   .hero-cover-title .ampersand {
     color: #D6B66F;
@@ -330,19 +331,12 @@
   .hero-portrait-card {
     position: relative;
     overflow: hidden;
-    border: 1px solid rgba(184,155,122,.36);
-    border-radius: 34px;
+    border-radius: 18px;
     background: rgba(255,253,248,.7);
-    box-shadow: 0 42px 110px -72px rgba(62,44,32,.76);
+    box-shadow: 0 26px 74px -62px rgba(62,44,32,.7);
   }
   .hero-portrait-card::before {
-    content: "";
-    position: absolute;
-    inset: 14px;
-    z-index: 2;
-    border: 1px solid rgba(250,247,241,.62);
-    border-radius: 24px;
-    pointer-events: none;
+    display: none;
   }
   .hero-cover-panel {
     border: 1px solid rgba(250,247,241,.28);
@@ -370,6 +364,23 @@
     font-size: .36em;
     font-style: italic;
     line-height: 1;
+  }
+
+  @media (min-width: 768px) {
+    .hero-cover-title {
+      font-size: clamp(6.2rem, 9vw, 11rem);
+      line-height: .88;
+    }
+    .hero-portrait-card {
+      border-radius: 30px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .hero-cover-title {
+      font-size: clamp(5.2rem, 6.2vw, 7.2rem);
+      white-space: normal;
+    }
   }
 
   @media (min-width: 768px) {
