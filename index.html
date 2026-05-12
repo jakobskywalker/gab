@@ -8,7 +8,7 @@
 <!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Lato:wght@300;400;500;700&family=Cormorant:ital,wght@0,300;0,400;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Great+Vibes&family=Lato:wght@300;400;500;700&family=Cormorant:ital,wght@0,300;0,400;1,400&display=swap" rel="stylesheet">
 
 <!-- Tailwind -->
 <script src="https://cdn.tailwindcss.com"></script>
@@ -49,6 +49,40 @@
   body { font-family: 'Lato', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
   .font-display { font-family: 'Playfair Display', serif; }
   .font-script  { font-family: 'Cormorant Garamond', serif; }
+  .font-hero-script { font-family: 'Great Vibes', cursive; }
+
+  .hero-script-title {
+    font-family: 'Great Vibes', cursive;
+    font-weight: 400;
+    letter-spacing: -.015em;
+    font-size: clamp(4.6rem, 16vw, 6.4rem);
+    line-height: .9;
+    text-shadow: 0 18px 42px rgba(62,44,32,.16);
+  }
+  .hero-script-title > span {
+    display: block;
+  }
+  .hero-ampersand {
+    margin: -.08em 0 -.02em;
+    color: var(--coffee);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: .42em;
+    font-style: italic;
+    line-height: 1;
+  }
+
+  @media (min-width: 768px) {
+    .hero-script-title {
+      font-size: clamp(6.2rem, 8vw, 9.2rem);
+      line-height: .88;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .hero-script-title {
+      font-size: clamp(7rem, 7.4vw, 9.6rem);
+    }
+  }
 
   .font-micro {
     font-size: 10px;
@@ -172,8 +206,9 @@
 
   .hero-editorial {
     background:
-      radial-gradient(900px 520px at 82% 18%, rgba(184,155,122,.22), transparent 58%),
-      linear-gradient(115deg, #FAF7F1 0%, #FAF7F1 52%, #EFE4D0 52.2%, #F5EFE3 100%);
+      radial-gradient(900px 520px at 82% 18%, rgba(184,155,122,.18), transparent 58%),
+      radial-gradient(700px 420px at 8% 84%, rgba(139,111,78,.08), transparent 62%),
+      linear-gradient(112deg, #FAF7F1 0%, #FAF7F1 57%, #F1E6D2 57.2%, #F7F0E4 100%);
   }
 
   .hero-editorial::before {
@@ -197,11 +232,169 @@
     pointer-events: none;
   }
 
+  .hero-luxe-grid {
+    min-height: calc(100svh - 8.5rem);
+  }
+
+  .hero-names {
+    font-family: 'Great Vibes', cursive;
+    font-size: clamp(5rem, 14vw, 7.4rem);
+    font-weight: 400;
+    letter-spacing: -.02em;
+    line-height: .86;
+    text-shadow: 0 18px 50px rgba(62,44,32,.14);
+  }
+  .hero-names .hero-name-line {
+    display: block;
+  }
+  .hero-names .hero-name-amp {
+    display: block;
+    margin: -.12em 0 -.06em;
+    color: var(--coffee);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: .44em;
+    font-style: italic;
+    line-height: 1;
+  }
+
+  .hero-date-row {
+    border-top: 1px solid rgba(184,155,122,.36);
+    border-bottom: 1px solid rgba(184,155,122,.36);
+    color: var(--coffee);
+  }
+
+  .hero-photo-card {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(184,155,122,.34);
+    border-radius: 36px;
+    background: rgba(255,253,248,.54);
+    box-shadow: 0 42px 120px -78px rgba(62,44,32,.72);
+  }
+  .hero-photo-card::before {
+    content: "";
+    position: absolute;
+    inset: 14px;
+    z-index: 2;
+    border: 1px solid rgba(250,247,241,.5);
+    border-radius: 26px;
+    pointer-events: none;
+  }
+  .hero-photo-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(180deg, rgba(20,14,10,.02), rgba(20,14,10,.22));
+    pointer-events: none;
+  }
+
+  .hero-cover {
+    background:
+      radial-gradient(900px 520px at 86% 20%, rgba(184,155,122,.16), transparent 58%),
+      linear-gradient(112deg, #FAF7F1 0%, #FAF7F1 55%, #F1E6D2 55.2%, #F7F0E4 100%);
+  }
+  .hero-cover::after {
+    content: "";
+    position: absolute;
+    inset: 18px;
+    z-index: 3;
+    border: 1px solid rgba(184,155,122,.34);
+    pointer-events: none;
+  }
+  .hero-cover-image {
+    filter: saturate(.96) contrast(.98);
+  }
+  .hero-cover-content {
+    text-shadow: none;
+  }
+  .hero-cover-title {
+    font-family: 'Great Vibes', cursive;
+    font-size: clamp(5.2rem, 13vw, 11rem);
+    font-weight: 400;
+    letter-spacing: -.02em;
+    line-height: .88;
+  }
+  .hero-cover-title .ampersand {
+    color: #D6B66F;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: .42em;
+    font-style: italic;
+    margin: 0 .16em;
+    vertical-align: .18em;
+  }
+  .hero-cover-rule {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(139,111,78,.52), transparent);
+  }
+  .hero-portrait-card {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(184,155,122,.36);
+    border-radius: 34px;
+    background: rgba(255,253,248,.7);
+    box-shadow: 0 42px 110px -72px rgba(62,44,32,.76);
+  }
+  .hero-portrait-card::before {
+    content: "";
+    position: absolute;
+    inset: 14px;
+    z-index: 2;
+    border: 1px solid rgba(250,247,241,.62);
+    border-radius: 24px;
+    pointer-events: none;
+  }
+  .hero-cover-panel {
+    border: 1px solid rgba(250,247,241,.28);
+    border-radius: 34px;
+    background:
+      linear-gradient(145deg, rgba(250,247,241,.88), rgba(245,239,227,.74));
+    box-shadow: 0 38px 100px -56px rgba(0,0,0,.82), inset 0 1px 0 rgba(255,255,255,.56);
+    color: var(--espresso);
+    backdrop-filter: blur(18px);
+  }
+  .hero-cover-names {
+    font-family: 'Great Vibes', cursive;
+    font-size: clamp(5rem, 17vw, 8rem);
+    font-weight: 400;
+    letter-spacing: -.02em;
+    line-height: .82;
+  }
+  .hero-cover-names span {
+    display: block;
+  }
+  .hero-cover-names .hero-cover-amp {
+    margin: -.06em 0 -.04em;
+    color: var(--coffee);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: .36em;
+    font-style: italic;
+    line-height: 1;
+  }
+
+  @media (min-width: 768px) {
+    .hero-cover-names {
+      font-size: clamp(7.5rem, 10.5vw, 12.5rem);
+    }
+  }
+
+  @media (min-width: 768px) {
+    .hero-names {
+      font-size: clamp(7.2rem, 9.4vw, 11rem);
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .hero-names {
+      font-size: clamp(8.4rem, 8vw, 11.4rem);
+    }
+  }
+
   .hero-image-panel {
     position: relative;
     overflow: hidden;
-    border-radius: 34px 34px 4px 34px;
-    box-shadow: 0 44px 100px -58px rgba(62,44,32,.72);
+    border-radius: 32px;
+    box-shadow: 0 34px 90px -58px rgba(62,44,32,.72);
     animation: hero-image-reveal 1.15s cubic-bezier(.2,.8,.2,1) .18s both;
   }
 
@@ -211,7 +404,7 @@
     inset: 14px;
     z-index: 2;
     border: 1px solid rgba(250,247,241,.42);
-    border-radius: 24px 24px 3px 24px;
+    border-radius: 24px;
     pointer-events: none;
   }
 
@@ -595,6 +788,77 @@
   }
   .btn-glass:hover { transform: translateY(-1px); background: rgba(250,247,241,.2); border-color: rgba(250,247,241,.75); }
 
+  .deadline-section {
+    background:
+      radial-gradient(780px 420px at 50% 10%, rgba(184,155,122,.18), transparent 62%),
+      linear-gradient(145deg, rgba(255,253,248,.96), rgba(245,239,227,.88)),
+      #FAF7F1;
+    color: var(--espresso);
+  }
+  .deadline-section::before {
+    content: "";
+    position: absolute;
+    inset: 24px;
+    border: 1px solid rgba(184,155,122,.34);
+    pointer-events: none;
+  }
+  .deadline-title {
+    text-shadow: 0 18px 56px rgba(62,44,32,.08);
+  }
+  .deadline-date {
+    color: var(--coffee);
+  }
+
+  .rings-ornament {
+    position: relative;
+    display: inline-grid;
+    width: 118px;
+    height: 72px;
+    place-items: center;
+    color: var(--coffee);
+  }
+  .rings-ornament::before,
+  .rings-ornament::after {
+    content: "";
+    position: absolute;
+    width: 54px;
+    height: 54px;
+    border: 2px solid currentColor;
+    border-radius: 999px;
+    opacity: .9;
+    box-shadow: 0 10px 28px -18px rgba(62,44,32,.7), inset 0 0 0 1px rgba(255,255,255,.32);
+  }
+  .rings-ornament::before {
+    left: 18px;
+    animation: ring-left 4.8s ease-in-out infinite;
+  }
+  .rings-ornament::after {
+    right: 18px;
+    animation: ring-right 4.8s ease-in-out infinite;
+  }
+  .rings-ornament.is-light {
+    color: #D6B66F;
+    filter: drop-shadow(0 10px 24px rgba(0,0,0,.45));
+  }
+  .rings-shine {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    border-radius: 999px;
+    pointer-events: none;
+  }
+  .rings-shine::before {
+    content: "";
+    position: absolute;
+    top: 4px;
+    bottom: 4px;
+    left: -45%;
+    width: 34%;
+    transform: skewX(-18deg);
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,.72), transparent);
+    animation: ring-shine 5.8s ease-in-out infinite;
+  }
+
   .hero-cta {
     position: relative;
     display: inline-flex;
@@ -831,6 +1095,20 @@
   @keyframes pulse-dot { 0%,100% { box-shadow: 0 0 0 0 rgba(139,111,78,.35);} 50% { box-shadow: 0 0 0 10px rgba(139,111,78,0);} }
   .pulse-dot { animation: pulse-dot 2.6s ease-out infinite; }
 
+  @keyframes ring-left {
+    0%, 100% { transform: translateX(0) rotate(-8deg); }
+    50% { transform: translateX(3px) rotate(-3deg); }
+  }
+  @keyframes ring-right {
+    0%, 100% { transform: translateX(0) rotate(8deg); }
+    50% { transform: translateX(-3px) rotate(3deg); }
+  }
+  @keyframes ring-shine {
+    0%, 42% { left: -45%; opacity: 0; }
+    52% { opacity: .7; }
+    68%, 100% { left: 110%; opacity: 0; }
+  }
+
   /* RSVP step indicator */
   .step-dot {
     width: 28px; height: 28px; border-radius: 999px;
@@ -937,7 +1215,8 @@
   @media (prefers-reduced-motion: reduce) {
     .kenburns, .drift, .pulse-dot, .tick, .confetti-piece,
     .hero-image-panel, .lightbox, .lightbox img, .lightbox p,
-    .btn-primary::after, .rsvp-step, .reveal.is-in .album-frame {
+    .btn-primary::after, .rsvp-step, .reveal.is-in .album-frame,
+    .rings-ornament::before, .rings-ornament::after, .rings-shine::before {
       animation: none !important;
     }
     .floating-nav, .lightbox-close, .lightbox-nav, .album-frame img {
@@ -968,6 +1247,13 @@
     .hero-image-panel {
       border-radius: 28px;
       box-shadow: 0 28px 70px -54px rgba(62,44,32,.72);
+    }
+    .hero-luxe-grid {
+      min-height: auto;
+    }
+    .hero-photo-card,
+    .hero-photo-card::before {
+      border-radius: 28px;
     }
   }
 

@@ -232,7 +232,6 @@ const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
   "palette": ["#FAF7F1", "#8B6F4E", "#3E2C20"],
   "headingFont": "Playfair Display",
   "showCountdown": true,
-  "showGallery": true,
   "showTimeline": true,
   "showHotels": true,
   "heroLayout": "editorial"
@@ -246,12 +245,10 @@ const PALETTES = [
 ];
 
 const NAV_LINKS = [
-  { id: "gallery", label: "Detail" },
   { id: "timeline", label: "Ablauf" },
   { id: "locations", label: "Anfahrt" },
   { id: "hotels", label: "Unterkunft" },
-  { id: "info", label: "Infos" },
-  { id: "rsvp", label: "RSVP" },
+  { id: "deadline", label: "Rückmeldung" },
 ];
 
 function FloatingNav() {
@@ -280,7 +277,7 @@ function FloatingNav() {
 }
 
 /* ───────────────────────────── Hero ──────────────────────────────────────────────── */
-const HERO_IMAGE = "/images/paar-professionell-ganzkoerper.png";
+const HERO_IMAGE = "/images/hero-paar-wand.png";
 
 function Hero({ heroLayout = "editorial" }) {
   const [scrollY, setScrollY] = useState(0);
@@ -324,7 +321,7 @@ function Hero({ heroLayout = "editorial" }) {
                 <p className="font-micro text-sand/90">7. November 2026 / Augsburg / Elchingen</p>
               </Reveal>
               <Reveal delay={280} className="mt-8">
-                <h1 className="hero-cinematic-title font-display text-[clamp(5rem,15vw,14rem)] font-medium leading-[.74] tracking-[-.085em]">
+                <h1 className="hero-cinematic-title hero-script-title">
                   Izla<br />
                   <span className="pl-[.18em] italic text-sand">&amp;</span><br />
                   Gabriel
@@ -366,7 +363,7 @@ function Hero({ heroLayout = "editorial" }) {
               <div className="hero-paper-card ornament-corners mx-auto max-w-2xl px-8 py-14 text-center md:px-14 md:py-20">
                 <Monogram className="mx-auto text-coffee" />
                 <p className="mt-10 font-micro text-coffee">Wir heiraten</p>
-                <h1 className="mt-7 font-display text-[clamp(3.8rem,10vw,8.5rem)] font-medium leading-[.86] tracking-[-.06em]">
+                <h1 className="hero-script-title mt-7">
                   Izla <span className="ampersand block text-coffee">&amp;</span> Gabriel
                 </h1>
                 <div className="mx-auto mt-8 h-px w-40 bg-gradient-to-r from-transparent via-coffee/55 to-transparent"></div>
@@ -397,80 +394,52 @@ function Hero({ heroLayout = "editorial" }) {
   }
 
   return (
-    <section className="hero-editorial relative min-h-[100svh] w-full overflow-hidden px-5 py-5 text-espresso md:px-10 md:py-8">
+    <section className="hero-cover relative min-h-[100svh] w-full overflow-hidden px-5 py-5 text-espresso md:px-10 md:py-8">
       <div className="relative z-10 mx-auto flex min-h-[calc(100svh-2.5rem)] w-full max-w-7xl flex-col md:min-h-[calc(100svh-4rem)]">
-        <div className="flex items-center justify-center gap-6 py-3 text-coffee md:justify-between md:py-4">
-          <span className="font-script text-base italic tracking-[0.14em] md:tracking-[0.18em]">Piro <span className="ampersand">&amp;</span> Malki</span>
-          <Monogram compact className="hidden text-coffee sm:grid" />
-          <span className="hidden font-micro text-right md:block">Private Wedding<br /> 07.11.2026</span>
+        <div className="flex items-center justify-between py-3 text-coffee md:py-4">
+          <span className="font-script text-base italic tracking-[0.16em]">Piro <span className="ampersand">&amp;</span> Malki</span>
+          <span className="hidden font-micro text-right md:block">07.11.2026<br />Augsburg & Elchingen</span>
         </div>
 
-        <div className="grid flex-1 grid-cols-1 items-center gap-8 py-8 md:gap-10 md:py-10 lg:grid-cols-[.92fr_1.08fr] lg:gap-14">
-          <div className="relative z-20 order-2 lg:order-1">
-            <Reveal delay={120}>
-              <p className="font-micro text-coffee">7. November 2026 / Augsburg & Elchingen</p>
-            </Reveal>
-
-            <Reveal delay={260} className="mt-7">
-              <h1 className="whitespace-nowrap font-display text-[clamp(3.2rem,16vw,4.8rem)] font-medium leading-[.86] tracking-[-.08em] md:whitespace-normal md:text-[clamp(4.4rem,12vw,11rem)] md:leading-[.76]">
-                <span className="inline md:block">Izla</span>
-                <span className="inline px-2 italic text-coffee md:block md:px-0 md:pl-[.28em]">&amp;</span>
-                <span className="inline md:block md:pl-[.1em]">Gabriel</span>
-              </h1>
-            </Reveal>
-
-            <Reveal delay={430} className="mt-8 max-w-xl">
-              <p className="font-script text-2xl italic leading-snug text-coffee md:text-3xl">
-                Zwei Familien, ein Versprechen und ein Abend, den wir mit euch für immer behalten möchten.
-              </p>
-            </Reveal>
-
-            <Reveal delay={560} className="mt-9 flex flex-col gap-3 sm:flex-row md:mt-10">
+        <div className="grid flex-1 grid-cols-1 items-center gap-10 py-10 md:py-12 lg:grid-cols-[.82fr_1.18fr] lg:gap-16 xl:gap-24">
+          <Reveal delay={160} className="hero-cover-content order-2 mx-auto max-w-xl text-center lg:order-1 lg:mx-0 lg:text-left">
+            <p className="font-micro text-coffee">Samstag, 07. November 2026</p>
+            <h1 className="hero-cover-title mt-12 text-espresso md:mt-14">
+              Izla <span className="ampersand">&amp;</span> Gabriel
+            </h1>
+            <div className="hero-cover-rule mx-auto mt-8 w-full max-w-md lg:mx-0" />
+            <p className="mt-8 font-script text-2xl italic leading-snug text-coffee md:text-4xl">
+              Kirchliche Trauung und Hochzeitsfeier mit unseren Familien.
+            </p>
+            <p className="mt-5 font-micro text-coffee/78">Augsburg & Elchingen</p>
+            <div className="mt-10 flex flex-col justify-center gap-3 sm:flex-row lg:justify-start">
               <button onClick={() => scrollTo("rsvp")} className="btn-primary inline-flex items-center justify-center gap-3 rounded-full px-7 py-4 text-xs uppercase tracking-[0.26em]">
                 RSVP öffnen <Icons.ArrowRight w={14} h={14} sw={2}/>
               </button>
               <button onClick={() => scrollTo("timeline")} className="btn-ghost inline-flex items-center justify-center rounded-full px-7 py-4 text-xs uppercase tracking-[0.24em]">
                 Ablauf ansehen
               </button>
-            </Reveal>
-          </div>
-
-          <Reveal delay={260} className="relative order-1 lg:order-2">
-            <div className="absolute -left-5 top-10 z-20 hidden hero-invite-card px-6 py-5 text-espresso md:block">
-              <p className="font-micro text-coffee">Save the date</p>
-              <div className="mt-3 flex items-end gap-3">
-                <span className="font-display text-6xl leading-none">07</span>
-                <span className="pb-2 font-script text-2xl italic text-coffee">November 2026</span>
-              </div>
             </div>
+          </Reveal>
 
-            <div className="hero-image-panel aspect-[4/5] min-h-[360px] md:aspect-[5/6] md:min-h-[420px] lg:min-h-[680px]">
+          <Reveal delay={260} className="order-1 lg:order-2">
+            <div className="hero-portrait-card mx-auto aspect-[4/5] min-h-[440px] w-full max-w-[36rem] lg:min-h-[670px] lg:max-w-none">
               <img
                 src={HERO_IMAGE}
                 alt="Izla & Gabriel"
-                className="h-full w-full object-cover transition-transform duration-200 ease-out"
-                style={{ transform: `translateY(${scrollY * 0.08}px) scale(1.045)` }}
+                className="hero-cover-image h-full w-full object-cover object-center transition-transform duration-200 ease-out"
+                style={{ transform: `translateY(${scrollY * 0.035}px) scale(1.02)` }}
                 onError={(e) => { e.currentTarget.style.display = "none"; }}
               />
-              <div className="absolute bottom-0 left-0 right-0 z-20 p-6 text-cream md:p-9">
-                <p className="font-micro text-cream/75">Kirchliche Trauung und Hochzeitsfeier</p>
-                <p className="mt-3 font-display text-3xl leading-none md:text-5xl">7. November 2026</p>
-              </div>
-            </div>
-
-            <div className="absolute -right-4 bottom-10 z-20 hidden rounded-full bg-cream/90 p-3 shadow-[0_20px_50px_-32px_rgba(62,44,32,.8)] md:block">
-              <Monogram compact className="text-coffee" />
             </div>
           </Reveal>
         </div>
 
-        <div className="hidden items-end justify-between pb-4 text-coffee/75 md:flex">
-          <span className="font-script text-base italic tracking-[0.18em]">Familie Piro <span className="ampersand">&amp;</span> Familie Malki</span>
+        <div className="hidden items-end justify-center pb-4 text-coffee/62 md:flex">
           <div className="flex flex-col items-center gap-2">
             <span className="text-[10px] uppercase tracking-[0.4em]">scroll</span>
             <div className="h-10 w-px bg-coffee/35 animate-pulse"></div>
           </div>
-          <span className="font-micro text-right">Augsburg / Elchingen</span>
         </div>
       </div>
     </section>
@@ -490,8 +459,7 @@ function useCountdown(target) {
   const days = Math.floor(diff / 86400000); diff -= days * 86400000;
   const hours = Math.floor(diff / 3600000); diff -= hours * 3600000;
   const minutes = Math.floor(diff / 60000); diff -= minutes * 60000;
-  const seconds = Math.floor(diff / 1000);
-  return { days, hours, minutes, seconds };
+  return { days, hours, minutes };
 }
 
 function CountdownCell({ value, label }) {
@@ -514,7 +482,7 @@ function CountdownCell({ value, label }) {
 }
 
 function Countdown() {
-  const { days, hours, minutes, seconds } = useCountdown(TARGET);
+  const { days, hours, minutes } = useCountdown(TARGET);
   return (
     <section id="countdown" className="section-shell relative py-24 md:py-32 px-6">
       <span className="section-label">Countdown</span>
@@ -530,90 +498,9 @@ function Countdown() {
             <CountdownCell value={days} label="Tage" />
             <CountdownCell value={hours} label="Stunden" />
             <CountdownCell value={minutes} label="Minuten" />
-            <CountdownCell value={seconds} label="Sekunden" />
           </div>
         </Reveal>
       </div>
-    </section>
-  );
-}
-
-/* ───────────────────────────── Gallery (Masonry) ─────────────────────────────────── */
-const GALLERY = [
-  { src: "/images/paar-professionell-blumen.png", alt: "Brautstrauß von Izla und Gabriel" },
-];
-
-function Gallery() {
-  const [active, setActive] = useState(null);
-
-  useEffect(() => {
-    if (active === null) return;
-
-    const onKeyDown = (event) => {
-      if (event.key === "Escape") setActive(null);
-      if (event.key === "ArrowRight") setActive((current) => (current + 1) % GALLERY.length);
-      if (event.key === "ArrowLeft") setActive((current) => (current - 1 + GALLERY.length) % GALLERY.length);
-    };
-
-    document.body.style.overflow = "hidden";
-    window.addEventListener("keydown", onKeyDown);
-    return () => {
-      document.body.style.overflow = "";
-      window.removeEventListener("keydown", onKeyDown);
-    };
-  }, [active]);
-
-  const showPrev = () => setActive((current) => (current - 1 + GALLERY.length) % GALLERY.length);
-  const showNext = () => setActive((current) => (current + 1) % GALLERY.length);
-  const activeImage = active === null ? null : GALLERY[active];
-  const hasMultipleImages = GALLERY.length > 1;
-
-  return (
-    <section id="gallery" className="gallery-album section-shell relative overflow-hidden py-20 md:py-32 px-6 bg-ivory/50">
-      <span className="section-label">Detail</span>
-      <span className="script-watermark left-[-4vw] top-20">Rosen</span>
-      <div className="mx-auto max-w-6xl">
-        <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-[.76fr_1.24fr] lg:gap-16">
-          <SectionIntro
-            eyebrow="ein detail"
-            title="Weiße Rosen, ein Versprechen"
-            text="Ein stiller Blick auf den Tag: klar, festlich und voller Vorfreude auf den 7. November."
-            align="left"
-            className="max-w-xl"
-          />
-
-          <Reveal delay={140} className="contact-sheet p-3 md:p-5">
-            <button
-              type="button"
-              onClick={() => setActive(0)}
-              className="album-frame group block aspect-[5/4] w-full cursor-zoom-in text-left md:aspect-[16/10]"
-            >
-              <img src={GALLERY[0].src} alt={GALLERY[0].alt} loading="lazy" />
-              <span className="absolute left-4 top-4 z-20 photo-number bg-cream/90">01</span>
-            </button>
-          </Reveal>
-        </div>
-      </div>
-
-      {activeImage && (
-        <div className="lightbox" role="dialog" aria-modal="true" aria-label={activeImage.alt}>
-          <button type="button" className="lightbox-close" onClick={() => setActive(null)} aria-label="Galerie schließen">
-            <Icons.X w={22} h={22} sw={2}/>
-          </button>
-          {hasMultipleImages && (
-            <button type="button" className="lightbox-nav left-5 md:left-8" onClick={showPrev} aria-label="Vorheriges Bild">
-              <span>&lsaquo;</span>
-            </button>
-          )}
-          <img src={activeImage.src} alt={activeImage.alt} />
-          {hasMultipleImages && (
-            <button type="button" className="lightbox-nav right-5 md:right-8" onClick={showNext} aria-label="Nächstes Bild">
-              <span>&rsaquo;</span>
-            </button>
-          )}
-          <p>{activeImage.alt}</p>
-        </div>
-      )}
     </section>
   );
 }
@@ -631,29 +518,29 @@ const LOCATIONS = [
     title: "Teqimo Bräutigam",
     time: "13:00 Uhr",
     address: "Zur Aumühle 9, 86153 Augsburg",
-    image: "https://images.unsplash.com/photo-1519741497674-611481863552?w=1200&q=80&auto=format&fit=crop",
-    imageAlt: "Eleganter Bräutigam am Hochzeitstag",
+    image: "/images/location-kirche.png",
+    imageAlt: "Teqimo Bräutigam",
   },
   {
     title: "Teqimo Braut",
     time: "13:45 Uhr",
     address: "Vienna House Easy, Am Technologiezentrum 1, 86159 Augsburg",
-    image: "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=1200&q=80&auto=format&fit=crop",
-    imageAlt: "Brautmoment vor der Trauung",
+    image: "/images/location-teqimo-braut.png",
+    imageAlt: "Teqimo Braut",
   },
   {
     title: "Kirchliche Trauung",
     time: "14:30 Uhr",
     address: "Syrisch-Orthodoxe Kirche von Antiochien, Zusamstraße 17, 86165 Augsburg",
-    image: "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=1200&q=80&auto=format&fit=crop",
-    imageAlt: "Festlich geschmückte Kirche für eine Trauung",
+    image: "/images/location-teqimo-braeutigam.png",
+    imageAlt: "Kirche der Trauung",
   },
   {
     title: "Hochzeitsfeier",
     time: "17:00 Uhr",
     address: "MAVI Event & Location (Rüya Saal), Daimlerstraße 3, 89275 Elchingen",
-    image: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=1200&q=80&auto=format&fit=crop",
-    imageAlt: "Elegante Hochzeitsfeier mit gedeckten Tischen",
+    image: "/images/location-saal.png",
+    imageAlt: "Saal der Hochzeitsfeier",
   },
 ];
 
@@ -822,91 +709,71 @@ function Hotels() {
   );
 }
 
-const CALENDAR_LINK = "https://calendar.google.com/calendar/render?action=TEMPLATE&text=Hochzeit%20Izla%20%26%20Gabriel&dates=20261107T120000Z/20261107T225900Z&details=Wir%20feiern%20die%20Hochzeit%20von%20Izla%20%26%20Gabriel.%20Ablauf%3A%2013%3A00%20Teqimo%20Br%C3%A4utigam%2C%2013%3A45%20Teqimo%20Braut%2C%2014%3A30%20Kirchliche%20Trauung%2C%2017%3A00%20Hochzeitsfeier.&location=Augsburg%20%C2%B7%20Elchingen";
+function RSVPDeadline() {
+  const scrollToRsvp = () => {
+    document.getElementById("rsvp")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
 
-const FAQS = [
-  {
-    q: "Wann sollen wir bei der Kirche sein?",
-    a: "Die kirchliche Trauung beginnt um 14:30 Uhr. Bitte plant etwas Puffer ein und seid pünktlich vor Ort.",
-  },
-  {
-    q: "Gibt es Parkplätze bei der Feier?",
-    a: "Ja, bei der MAVI Event & Location sind ausreichend Parkplätze vorhanden.",
-  },
-  {
-    q: "Wie läuft das mit den Unterkünften?",
-    a: "Für beide Familien werden Zimmer reserviert. Weitere Details und Kontingente folgen rechtzeitig.",
-  },
-  {
-    q: "Bis wann sollen wir antworten?",
-    a: "Gebt uns bitte so früh wie möglich über das RSVP-Formular Bescheid, ob ihr dabei seid.",
-  },
-];
-
-function InfoSections() {
   return (
-    <section id="info" className="section-shell relative py-24 md:py-36 px-6">
-      <span className="section-label">Details</span>
-      <div className="mx-auto max-w-6xl">
-        <SectionIntro
-          eyebrow="gut zu wissen"
-          title="Infos für euch"
-          className="mb-14 max-w-2xl"
-        />
-
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
-          <Reveal className="card p-7 md:p-9">
-            <div className="flex items-start justify-between gap-5">
-              <div>
-                <p className="text-xs uppercase tracking-[0.22em] text-coffee/80">Dresscode</p>
-                <h3 className="mt-3 font-display text-3xl text-espresso">Festlich elegant</h3>
-              </div>
-              <Icons.Sparkles w={24} h={24} sw={1.4}/>
-            </div>
-            <p className="mt-5 text-ink/75 leading-relaxed">
-              Wir freuen uns über elegante, festliche Outfits. Helle Naturtöne, warme Farben, Navy, Schwarz oder klassische Abendmode passen wunderbar zum Stil des Tages.
-            </p>
-            <div className="mt-7 flex gap-3">
-              {["#F7EFE3", "#B89B7A", "#1F2A44", "#2B1F16", "#7D4854"].map((color) => (
-                <span key={color} className="h-10 w-10 rounded-full border border-sand shadow-sm" style={{ background: color }} />
-              ))}
-            </div>
-          </Reveal>
-
-          <Reveal delay={120} className="card p-7 md:p-9">
-            <div className="flex items-start justify-between gap-5">
-              <div>
-                <p className="text-xs uppercase tracking-[0.22em] text-coffee/80">Kalender</p>
-                <h3 className="mt-3 font-display text-3xl text-espresso">Save the Date</h3>
-              </div>
-              <Icons.Calendar w={24} h={24} sw={1.5}/>
-            </div>
-            <p className="mt-5 text-ink/75 leading-relaxed">
-              Speichert euch den 7. November 2026 direkt im Kalender. So habt ihr Datum, Orte und Ablauf jederzeit griffbereit.
-            </p>
-            <a href={CALENDAR_LINK} target="_blank" rel="noreferrer"
-              className="btn-primary mt-7 inline-flex items-center gap-3 px-7 py-4 rounded-sm uppercase text-xs tracking-[0.25em]">
-              Zum Kalender hinzufügen <Icons.ArrowRight w={14} h={14} sw={2}/>
-            </a>
-          </Reveal>
-        </div>
-
-        <Reveal delay={220} className="mt-8 card p-7 md:p-9">
-          <div className="flex items-start justify-between gap-5 mb-6">
-            <div>
-              <p className="text-xs uppercase tracking-[0.22em] text-coffee/80">FAQ</p>
-              <h3 className="mt-3 font-display text-3xl text-espresso">Häufige Fragen</h3>
-            </div>
-            <Icons.Heart w={24} h={24} sw={1.4}/>
+    <section id="deadline" className="deadline-section section-shell relative overflow-hidden px-6 py-24 text-center md:py-32">
+      <div className="relative z-10 mx-auto max-w-5xl">
+        <Reveal>
+          <div className="rings-ornament mx-auto mb-7" aria-hidden="true">
+            <span className="rings-shine"></span>
           </div>
+        </Reveal>
 
-          <div className="divide-y divide-sand/80">
-            {FAQS.map((item) => (
-              <details key={item.q} className="faq-item py-5">
-                <summary className="cursor-pointer font-display text-xl text-espresso">{item.q}</summary>
-                <p className="mt-3 text-sm leading-relaxed text-ink/75">{item.a}</p>
-              </details>
-            ))}
+        <Reveal>
+          <p className="editorial-kicker justify-center">wichtige information</p>
+        </Reveal>
+
+        <Reveal delay={120}>
+          <h2 className="deadline-title mx-auto mt-8 max-w-4xl font-display text-5xl italic leading-[.95] tracking-[-.04em] text-espresso md:text-8xl">
+            Rückmeldung bis<br />
+            <span className="deadline-date">01. August 2026</span>
+          </h2>
+        </Reveal>
+
+        <Reveal delay={240}>
+          <p className="mx-auto mt-8 max-w-2xl text-sm leading-relaxed text-ink/70 md:text-base">
+            Damit wir Plätze, Ablauf und Feier verlässlich planen können, bitten wir euch um eure Zusage oder Absage bis zu diesem Datum.
+          </p>
+        </Reveal>
+
+        <Reveal delay={360}>
+          <button
+            type="button"
+            onClick={scrollToRsvp}
+            className="btn-primary mt-10 inline-flex items-center justify-center gap-3 rounded-full px-8 py-4 text-xs uppercase tracking-[0.24em]"
+          >
+            Jetzt anmelden <Icons.ArrowRight w={14} h={14} sw={2}/>
+          </button>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+function VerseSection() {
+  return (
+    <section className="section-shell relative overflow-hidden bg-ivory/50 px-6 py-20 md:py-28">
+      <div className="mx-auto max-w-3xl text-center">
+        <Reveal>
+          <div className="rings-ornament mx-auto mb-8" aria-hidden="true">
+            <span className="rings-shine"></span>
+          </div>
+        </Reveal>
+        <Reveal delay={100}>
+          <blockquote className="font-display italic text-espresso text-2xl md:text-4xl leading-[1.35] [text-wrap:balance]">
+            „So sind sie nicht mehr zwei, sondern ein Fleisch.
+            Was nun Gott zusammengefügt hat, das soll der Mensch nicht scheiden!“
+          </blockquote>
+        </Reveal>
+        <Reveal delay={250}>
+          <div className="mt-8 flex items-center justify-center gap-5 text-coffee">
+            <span className="hairline w-16"></span>
+            <span className="font-script italic text-base tracking-[0.2em]">Matthäus 19,6</span>
+            <span className="hairline w-16"></span>
           </div>
         </Reveal>
       </div>
@@ -929,6 +796,7 @@ const EMPTY_RSVP = {
   lastName: "",
   attending: "",      // 'yes' | 'no'
   plusOnes: 0,
+  guestNames: [],
   needsHotel: "",     // 'yes' | 'no'
   hotelCount: 1,
   family: "",
@@ -967,12 +835,30 @@ function RSVP() {
   const [submitted, setSubmitted] = useState(false);
   const set = (k, v) => setState((s) => ({ ...s, [k]: v }));
   const fullName = `${state.firstName} ${state.lastName}`.trim();
+  const guestNames = state.guestNames.slice(0, state.plusOnes);
+  const allGuestNamesEntered = guestNames.every((name) => name.trim().length > 1);
 
   const validStep1 = state.firstName.trim().length > 1 && state.lastName.trim().length > 1 && state.attending;
   const validStep2 = state.attending === "yes" && state.arrival && state.needsHotel && (
     state.needsHotel === "no" || (state.hotelCount > 0 && state.family)
-  );
+  ) && (state.plusOnes === 0 || allGuestNamesEntered);
   const valid = state.attending === "no" ? validStep1 : validStep1 && validStep2;
+
+  const setPlusOnes = (count) => {
+    setState((s) => ({
+      ...s,
+      plusOnes: count,
+      guestNames: Array.from({ length: count }, (_, index) => s.guestNames[index] || ""),
+    }));
+  };
+
+  const setGuestName = (index, value) => {
+    setState((s) => {
+      const guestNames = Array.from({ length: s.plusOnes }, (_, i) => s.guestNames[i] || "");
+      guestNames[index] = value;
+      return { ...s, guestNames };
+    });
+  };
 
   const goToSummary = () => {
     if (!validStep1) return;
@@ -1015,13 +901,13 @@ function RSVP() {
   return (
     <section id="rsvp" className="section-shell relative overflow-hidden py-24 md:py-36 px-6">
       <span className="section-label">RSVP</span>
-      <span className="script-watermark right-[-5vw] top-20">RSVP</span>
+      <span className="script-watermark right-6 top-20 hidden md:block">RSVP</span>
       <div className="mx-auto grid max-w-6xl grid-cols-1 items-start gap-10 lg:grid-cols-[.82fr_1.18fr]">
         <div className="lg:sticky lg:top-28">
           <SectionIntro
-            eyebrow="u. a. w. g."
+            eyebrow="rsvp"
             title="Um Rückantwort wird gebeten"
-            text="Bitte gebt uns Bescheid, ob ihr dabei seid. Das hilft uns bei Sitzplan, Unterkunft und Ablauf."
+            text="Wir bitten um Rückmeldung bis zum 01. August 2026, damit wir Sitzplan, Unterkunft und Ablauf gut vorbereiten können."
             align="left"
           />
           <Reveal delay={160} className="mt-10 hidden lg:block">
@@ -1073,7 +959,7 @@ function RSVP() {
                       <label key={o.v} className={`chip ${state.attending===o.v?"is-on":""} cursor-pointer rounded-sm px-5 py-4 flex items-center gap-3 text-sm`}>
                         <input type="radio" name="attending" value={o.v}
                           checked={state.attending===o.v}
-                          onChange={() => setState((s) => ({ ...s, attending: o.v, plusOnes: 0, needsHotel: "", hotelCount: 1, family: "", arrival: "" }))}
+                          onChange={() => setState((s) => ({ ...s, attending: o.v, plusOnes: 0, guestNames: [], needsHotel: "", hotelCount: 1, family: "", arrival: "" }))}
                           className="visually-hidden" />
                         <span className={`grid place-items-center h-7 w-7 rounded-full ${state.attending===o.v?"bg-cream/15":"bg-sand"} ${state.attending===o.v?"text-cream":"text-espresso"}`}>
                           {o.icon}
@@ -1091,17 +977,41 @@ function RSVP() {
                 <FieldLabel n="04">Begleitpersonen</FieldLabel>
                 <div className="relative">
                   <select value={state.plusOnes}
-                          onChange={(e)=>set("plusOnes", Number(e.target.value))}
+                          onChange={(e)=>setPlusOnes(Number(e.target.value))}
                           className="field w-full rounded-sm px-4 py-3.5 pr-10 appearance-none">
-                    {[0,1,2,3,4,5].map(n => <option key={n} value={n}>{n === 0 ? "Keine" : `${n} Person${n>1?"en":""}`}</option>)}
+                    {Array.from({ length: 11 }, (_, n) => (
+                      <option key={n} value={n}>{n === 0 ? "Keine" : `${n} Person${n>1?"en":""}`}</option>
+                    ))}
                   </select>
                   <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-coffee">
                     <Icons.ChevronDown w={18} h={18}/>
                   </span>
                 </div>
 
+                {state.plusOnes > 0 && (
+                  <div className="mt-8">
+                    <FieldLabel n="05">Namen der weiteren Personen</FieldLabel>
+                    <div className="space-y-3">
+                      {Array.from({ length: state.plusOnes }, (_, index) => (
+                        <div key={index} className="grid grid-cols-[32px_1fr] items-center gap-3">
+                          <span className="font-script italic text-coffee text-lg">{index + 2}</span>
+                          <input
+                            value={state.guestNames[index] || ""}
+                            onChange={(e) => setGuestName(index, e.target.value)}
+                            className="field w-full rounded-sm px-4 py-3.5 placeholder:text-coffee/45"
+                            placeholder="Vor- und Nachname"
+                          />
+                        </div>
+                      ))}
+                    </div>
+                    <p className="mt-3 text-xs leading-relaxed text-coffee/70">
+                      Bitte tragt jede Person einzeln ein, damit wir Sitzplan und Einlass sauber vorbereiten können.
+                    </p>
+                  </div>
+                )}
+
                 <div className="mt-8">
-                  <FieldLabel n="05">Unterkunft benötigt?</FieldLabel>
+                  <FieldLabel n="06">Unterkunft benötigt?</FieldLabel>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     {[
                       { v: "yes", label: "Ja", icon: <Icons.Bed w={16} h={16} sw={1.6}/> },
@@ -1124,7 +1034,7 @@ function RSVP() {
                 {state.needsHotel === "yes" && (
                   <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <FieldLabel n="06">Anzahl Zimmer</FieldLabel>
+                      <FieldLabel n="07">Anzahl Zimmer</FieldLabel>
                       <div className="relative">
                         <select value={state.hotelCount}
                                 onChange={(e)=>set("hotelCount", Number(e.target.value))}
@@ -1137,7 +1047,7 @@ function RSVP() {
                       </div>
                     </div>
                     <div>
-                      <FieldLabel n="07">Familie</FieldLabel>
+                      <FieldLabel n="08">Familie</FieldLabel>
                       <div className="relative">
                         <select value={state.family}
                                 onChange={(e)=>set("family", e.target.value)}
@@ -1155,7 +1065,7 @@ function RSVP() {
                 )}
 
                 <div className="mt-8">
-                  <FieldLabel n="08">Eigenes Auto?</FieldLabel>
+                  <FieldLabel n="09">Eigenes Auto?</FieldLabel>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     {[
                       { v: "car",   label: "Ja",   icon: <Icons.Car w={16} h={16} sw={1.7}/> },
@@ -1179,7 +1089,7 @@ function RSVP() {
 
             {step === 3 && (
               <div key="step-3" className="rsvp-step">
-                <FieldLabel n="09">Zusammenfassung</FieldLabel>
+                <FieldLabel n="10">Zusammenfassung</FieldLabel>
                 {state.attending === "no" ? (
                   <p className="text-ink/75 leading-relaxed">Schade, dass ihr nicht dabei sein könnt.</p>
                 ) : (
@@ -1187,6 +1097,16 @@ function RSVP() {
                     <p><strong className="text-espresso">Name:</strong> {fullName}</p>
                     <p><strong className="text-espresso">Zusage:</strong> Ja, wir kommen!</p>
                     <p><strong className="text-espresso">Begleitpersonen:</strong> {state.plusOnes}</p>
+                    {state.plusOnes > 0 && (
+                      <div>
+                        <strong className="text-espresso">Weitere Personen:</strong>
+                        <ul className="mt-2 list-disc space-y-1 pl-5">
+                          {guestNames.map((name, index) => (
+                            <li key={`${name}-${index}`}>{name}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
                     <p><strong className="text-espresso">Unterkunft:</strong> {state.needsHotel === "yes" ? `Ja, ${state.hotelCount} Zimmer · Familie ${state.family}` : "Nein"}</p>
                     <p><strong className="text-espresso">Eigenes Auto:</strong> {state.arrival === "car" ? "Ja" : "Nein"}</p>
                   </div>
@@ -1232,26 +1152,7 @@ function Footer() {
     <footer className="relative py-32 md:py-44 px-6">
       <div className="mx-auto max-w-3xl text-center">
         <Reveal>
-          <div className="mx-auto mb-10 text-coffee/70 drift">
-            <Icons.Sparkles w={28} h={28} sw={1.2}/>
-          </div>
-        </Reveal>
-        <Reveal delay={100}>
-          <blockquote className="font-display italic text-espresso text-2xl md:text-4xl leading-[1.35] [text-wrap:balance]">
-            „So sind sie nicht mehr zwei, sondern ein Fleisch.
-            Was nun Gott zusammengefügt hat, das soll der Mensch nicht scheiden!“
-          </blockquote>
-        </Reveal>
-        <Reveal delay={250}>
-          <div className="mt-10 flex items-center justify-center gap-5 text-coffee">
-            <span className="hairline w-16"></span>
-            <span className="font-script italic text-base tracking-[0.2em]">Matthäus 19,6</span>
-            <span className="hairline w-16"></span>
-          </div>
-        </Reveal>
-
-        <Reveal delay={450}>
-          <div className="mt-24 flex flex-col items-center gap-3 text-coffee/80">
+          <div className="flex flex-col items-center gap-3 text-coffee/80">
             <div className="font-display text-2xl text-espresso">
               Izla <span className="ampersand text-coffee">&amp;</span> Gabriel
             </div>
@@ -1292,12 +1193,12 @@ function App() {
     <div className="relative">
       <FloatingNav/>
       <Hero heroLayout={t.heroLayout}/>
-      {t.showGallery && <Gallery/>}
+      <VerseSection/>
       {t.showCountdown && <Countdown/>}
+      <RSVPDeadline/>
       {t.showTimeline && <Timeline/>}
       {t.showTimeline && <VenueMaps/>}
       {t.showHotels && <Hotels/>}
-      <InfoSections/>
       <RSVP/>
       <Footer/>
 
@@ -1315,7 +1216,6 @@ function App() {
 
         <TweakSection label="Sektionen"/>
         <TweakToggle label="Countdown" value={t.showCountdown} onChange={(v) => setTweak("showCountdown", v)}/>
-        <TweakToggle label="Galerie"  value={t.showGallery}   onChange={(v) => setTweak("showGallery", v)}/>
         <TweakToggle label="Timeline" value={t.showTimeline}  onChange={(v) => setTweak("showTimeline", v)}/>
         <TweakToggle label="Hotels"   value={t.showHotels}    onChange={(v) => setTweak("showHotels", v)}/>
       </TweaksPanel>
