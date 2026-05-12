@@ -246,6 +246,7 @@ const PALETTES = [
 ];
 
 const NAV_LINKS = [
+  { id: "gallery", label: "Detail" },
   { id: "timeline", label: "Ablauf" },
   { id: "locations", label: "Anfahrt" },
   { id: "hotels", label: "Unterkunft" },
@@ -279,7 +280,7 @@ function FloatingNav() {
 }
 
 /* ───────────────────────────── Hero ──────────────────────────────────────────────── */
-const HERO_IMAGE = "/images/antrag-umarmung.png";
+const HERO_IMAGE = "/images/paar-professionell-ganzkoerper.png";
 
 function Hero({ heroLayout = "editorial" }) {
   const [scrollY, setScrollY] = useState(0);
@@ -360,13 +361,7 @@ function Hero({ heroLayout = "editorial" }) {
             <span className="font-micro text-right">Augsburg / Elchingen</span>
           </div>
 
-          <div className="grid flex-1 grid-cols-1 items-center gap-8 py-8 lg:grid-cols-[.62fr_1fr_.62fr]">
-            <Reveal delay={160} className="hidden lg:block">
-              <div className="ph aspect-[3/4] rotate-[-2deg]">
-                <img src="/images/antrag-picknick.png" alt="Picknick beim Antrag" loading="lazy" />
-              </div>
-            </Reveal>
-
+          <div className="grid flex-1 grid-cols-1 items-center gap-8 py-8 lg:grid-cols-[1fr_.72fr]">
             <Reveal delay={120}>
               <div className="hero-paper-card ornament-corners mx-auto max-w-2xl px-8 py-14 text-center md:px-14 md:py-20">
                 <Monogram className="mx-auto text-coffee" />
@@ -392,7 +387,7 @@ function Hero({ heroLayout = "editorial" }) {
 
             <Reveal delay={220} className="hidden lg:block">
               <div className="ph mt-20 aspect-[3/4] rotate-[2deg]">
-                <img src={HERO_IMAGE} alt="Izla und Gabriel nach dem Antrag" loading="lazy" />
+                <img src={HERO_IMAGE} alt="Izla und Gabriel" loading="lazy" />
               </div>
             </Reveal>
           </div>
@@ -545,74 +540,8 @@ function Countdown() {
 
 /* ───────────────────────────── Gallery (Masonry) ─────────────────────────────────── */
 const GALLERY = [
-  { src: "/images/paar-blumenbogen.png", h: 620, alt: "Izla und Gabriel beim Fest" },
-  { src: "/images/paar-selfie.png", h: 520, alt: "Selfie von Izla und Gabriel" },
-  { src: "/images/antrag-kniefall.png", h: 620, alt: "Der Antrag im Kniefall" },
-  { src: "/images/antrag-picknick.png", h: 430, alt: "Der gedeckte Picknicktisch beim Antrag" },
-  { src: "/images/paar-nahaufnahme.png", h: 620, alt: "Izla und Gabriel zusammen" },
-  { src: "/images/antrag-umarmung.png", h: 620, alt: "Umarmung nach dem Antrag" },
-  { src: "https://images.unsplash.com/photo-1606216794074-735e91aa2c92?w=1200&q=80&auto=format&fit=crop", h: 420, alt: "Eheringe" },
-  { src: "https://images.unsplash.com/photo-1519741497674-611481863552?w=1200&q=80&auto=format&fit=crop", h: 520, alt: "Hochzeitsmoment" },
+  { src: "/images/paar-professionell-blumen.png", alt: "Brautstrauß von Izla und Gabriel" },
 ];
-
-function ProposalStory() {
-  return (
-    <section className="section-shell relative overflow-hidden py-24 md:py-36 px-6 bg-ivory/50">
-      <span className="section-label">Antrag</span>
-      <span className="script-watermark right-[-2vw] top-24">Ja</span>
-      <div className="mx-auto max-w-6xl">
-        <div className="grid grid-cols-1 gap-10 lg:grid-cols-[.7fr_1.3fr] lg:gap-14">
-          <Reveal className="lg:pt-16">
-            <p className="editorial-kicker">unser antrag</p>
-            <h2 className="mt-5 max-w-xl font-display text-5xl md:text-7xl text-espresso leading-[.9] tracking-tight">
-              Der Moment, in dem alles begann
-            </h2>
-            <div className="magazine-rule mt-8 w-40"></div>
-            <p className="mt-8 text-ink/75 leading-relaxed">
-              Ein kleiner Tisch, zwei Stühle, Rosen, eine Steinmauer und dieser eine Moment, in dem die Welt kurz still wurde.
-            </p>
-            <div className="mt-10 grid grid-cols-2 gap-4 border-y border-sand/80 py-6 text-sm text-coffee/85">
-              <div>
-                <span className="font-micro block text-coffee/60">Kapitel</span>
-                <span className="mt-2 block font-display text-2xl text-espresso">01</span>
-              </div>
-              <div>
-                <span className="font-micro block text-coffee/60">Versprechen</span>
-                <span className="mt-2 block font-display text-2xl text-espresso">Ja</span>
-              </div>
-            </div>
-          </Reveal>
-
-          <div className="relative">
-            <Reveal>
-              <div className="album-frame aspect-[5/4] w-full md:aspect-[16/11]">
-                <img src="/images/antrag-kniefall.png" alt="Der Antrag im Kniefall" loading="lazy" />
-                <span className="absolute left-5 top-5 z-20 photo-number bg-cream/90">01</span>
-                <span className="absolute bottom-5 right-5 z-20 hidden max-w-xs album-caption px-5 py-4 md:block">
-                  <span className="font-micro text-coffee">The proposal</span>
-                  <span className="mt-2 block font-script text-xl italic leading-snug text-espresso">
-                    Der Augenblick, der aus einem schönen Tag unser gemeinsames Versprechen gemacht hat.
-                  </span>
-                </span>
-              </div>
-            </Reveal>
-
-            <Reveal delay={180} className="mt-6 grid grid-cols-1 items-end gap-6 md:grid-cols-[.62fr_1fr]">
-              <div className="album-frame aspect-[4/5] md:-mt-20 md:ml-8">
-                <img src="/images/antrag-picknick.png" alt="Picknicktisch beim Antrag" loading="lazy" />
-              </div>
-              <div className="lux-panel ornament-corners p-7 md:p-9">
-                <p className="font-script italic text-coffee text-2xl md:text-3xl leading-relaxed">
-                  Aus einem Ja beim Antrag wird am 7. November unser Ja vor Gott und unseren Familien.
-                </p>
-              </div>
-            </Reveal>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
 
 function Gallery() {
   const [active, setActive] = useState(null);
@@ -637,82 +566,31 @@ function Gallery() {
   const showPrev = () => setActive((current) => (current - 1 + GALLERY.length) % GALLERY.length);
   const showNext = () => setActive((current) => (current + 1) % GALLERY.length);
   const activeImage = active === null ? null : GALLERY[active];
+  const hasMultipleImages = GALLERY.length > 1;
 
   return (
-    <section id="gallery" className="gallery-album section-shell relative overflow-hidden py-24 md:py-36 px-6">
-      <span className="section-label">Album</span>
-      <span className="script-watermark left-[-4vw] top-20">Love</span>
+    <section id="gallery" className="gallery-album section-shell relative overflow-hidden py-20 md:py-32 px-6 bg-ivory/50">
+      <span className="section-label">Detail</span>
+      <span className="script-watermark left-[-4vw] top-20">Rosen</span>
       <div className="mx-auto max-w-6xl">
-        <div className="mb-14 grid grid-cols-1 items-end gap-8 md:mb-20 md:grid-cols-[.9fr_1.1fr]">
+        <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-[.76fr_1.24fr] lg:gap-16">
           <SectionIntro
-            eyebrow="erinnerungen"
-            title="Ein kleines Hochzeitsalbum vor dem großen Tag"
+            eyebrow="ein detail"
+            title="Weiße Rosen, ein Versprechen"
+            text="Ein stiller Blick auf den Tag: klar, festlich und voller Vorfreude auf den 7. November."
             align="left"
+            className="max-w-xl"
           />
-          <Reveal delay={120} className="max-w-xl text-coffee/90 leading-relaxed md:justify-self-end">
-            Diese Seite soll sich weniger wie eine Galerie und mehr wie ein privates Album anfühlen: einzelne Augenblicke, leise Details und viel Gefühl.
-          </Reveal>
-        </div>
 
-        <Reveal delay={100}>
-          <button type="button" onClick={() => setActive(0)} className="album-frame group block aspect-[5/4] w-full cursor-zoom-in text-left md:aspect-[16/9]">
-            <img src={GALLERY[0].src} alt={GALLERY[0].alt} loading="lazy" />
-            <span className="absolute left-5 top-5 z-20 photo-number bg-cream/90">01</span>
-            <span className="absolute bottom-5 left-5 right-5 z-20 album-caption max-w-lg px-5 py-4 md:left-auto">
-              <span className="font-micro text-coffee">Featured memory</span>
-              <span className="mt-2 block font-script text-xl italic leading-snug text-espresso md:text-2xl">
-                Kleine Augenblicke, große Gefühle und Erinnerungen, die uns bis zum Hochzeitstag begleiten.
-              </span>
-            </span>
-          </button>
-        </Reveal>
-
-        <Reveal delay={180} className="mt-8 contact-sheet p-3 md:p-5">
-          <div className="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-5">
-            {[1, 2, 3, 4].map((index) => (
-              <button key={GALLERY[index].src} type="button" onClick={() => setActive(index)}
-                className="album-frame group aspect-[4/5] cursor-zoom-in text-left">
-                <img src={GALLERY[index].src} alt={GALLERY[index].alt} loading="lazy" />
-                <span className="absolute bottom-3 left-3 z-20 photo-number bg-cream/90">
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-              </button>
-            ))}
-          </div>
-        </Reveal>
-
-        <div className="mt-10 grid grid-cols-1 gap-8 md:grid-cols-[.88fr_1.12fr] md:items-center">
-          <Reveal delay={220}>
-            <button type="button" onClick={() => setActive(5)} className="album-frame group block aspect-[4/5] w-full cursor-zoom-in text-left">
-              <img src={GALLERY[5].src} alt={GALLERY[5].alt} loading="lazy" />
-              <span className="absolute left-5 top-5 z-20 photo-number bg-cream/90">06</span>
+          <Reveal delay={140} className="contact-sheet p-3 md:p-5">
+            <button
+              type="button"
+              onClick={() => setActive(0)}
+              className="album-frame group block aspect-[5/4] w-full cursor-zoom-in text-left md:aspect-[16/10]"
+            >
+              <img src={GALLERY[0].src} alt={GALLERY[0].alt} loading="lazy" />
+              <span className="absolute left-4 top-4 z-20 photo-number bg-cream/90">01</span>
             </button>
-          </Reveal>
-
-          <Reveal delay={300}>
-            <div className="grid grid-cols-1 gap-6">
-              <div className="lux-panel ornament-corners p-8 md:p-10">
-                <p className="font-micro text-coffee">Album note</p>
-                <p className="mt-5 font-display text-3xl leading-tight text-espresso md:text-5xl">
-                  Nicht jedes Bild muss laut sein. Manche bleiben, weil sie leise sind.
-                </p>
-                <p className="mt-6 text-ink/70 leading-relaxed">
-                  Genau so soll die Galerie wirken: nicht wie ein Foto-Grid, sondern wie eine kleine, persönliche Strecke mit Momenten, Details und Atmosphäre.
-                </p>
-              </div>
-
-              <div className="grid grid-cols-2 gap-5">
-                {[6, 7].map((index) => (
-                  <button key={GALLERY[index].src} type="button" onClick={() => setActive(index)}
-                    className="album-frame group aspect-[4/3] cursor-zoom-in text-left">
-                    <img src={GALLERY[index].src} alt={GALLERY[index].alt} loading="lazy" />
-                    <span className="absolute bottom-3 left-3 z-20 photo-number bg-cream/90">
-                      {String(index + 1).padStart(2, "0")}
-                    </span>
-                  </button>
-                ))}
-              </div>
-            </div>
           </Reveal>
         </div>
       </div>
@@ -722,13 +600,17 @@ function Gallery() {
           <button type="button" className="lightbox-close" onClick={() => setActive(null)} aria-label="Galerie schließen">
             <Icons.X w={22} h={22} sw={2}/>
           </button>
-          <button type="button" className="lightbox-nav left-5 md:left-8" onClick={showPrev} aria-label="Vorheriges Bild">
-            <span>&lsaquo;</span>
-          </button>
+          {hasMultipleImages && (
+            <button type="button" className="lightbox-nav left-5 md:left-8" onClick={showPrev} aria-label="Vorheriges Bild">
+              <span>&lsaquo;</span>
+            </button>
+          )}
           <img src={activeImage.src} alt={activeImage.alt} />
-          <button type="button" className="lightbox-nav right-5 md:right-8" onClick={showNext} aria-label="Nächstes Bild">
-            <span>&rsaquo;</span>
-          </button>
+          {hasMultipleImages && (
+            <button type="button" className="lightbox-nav right-5 md:right-8" onClick={showNext} aria-label="Nächstes Bild">
+              <span>&rsaquo;</span>
+            </button>
+          )}
           <p>{activeImage.alt}</p>
         </div>
       )}
@@ -1410,7 +1292,6 @@ function App() {
     <div className="relative">
       <FloatingNav/>
       <Hero heroLayout={t.heroLayout}/>
-      <ProposalStory/>
       {t.showGallery && <Gallery/>}
       {t.showCountdown && <Countdown/>}
       {t.showTimeline && <Timeline/>}
