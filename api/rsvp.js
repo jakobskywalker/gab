@@ -63,22 +63,42 @@ export default async function handler(req, res) {
 </html>`;
 
   try {
-    const resp = await fetch("https://api.resend.com/emails", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        from: "Hochzeit RSVP <rsvp@gabrielizla.de>",
-        to: ["gabmalki@gmail.com", "jakob.baumann12345@gmail.com"],
-        subject: `RSVP: ${fullName} — ${isYes ? "Zusage ✓" : "Absage ✗"}`,
-        html,
+    const [emailResp, sheetResp] = await Promise.all([
+      fetch("https://api.resend.com/emails", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          from: "Hochzeit RSVP <rsvp@gabrielizla.de>",
+          to: ["gabmalki@gmail.com", "jakob.baumann12345@gmail.com"],
+          subject: `RSVP: ${fullName} — ${isYes ? "Zusage ✓" : "Absage ✗"}`,
+          html,
+        }),
       }),
-    });
+      process.env.SHEET_WEBHOOK_URL
+        ? fetch(process.env.SHEET_WEBHOOK_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              timestamp: new Date().toISOString(),
+              firstName,
+              lastName,
+              attending: isYes ? "Zusage" : "Absage",
+              plusOnes,
+              guestNames: guestNames ? guestNames.join(", ") : "",
+              arrival: arrival === "car" ? "Mit Auto" : "Ohne Auto",
+              needsHotel: needsHotel === "yes" ? "Ja" : "Nein",
+              hotelCount: needsHotel === "yes" ? hotelCount : "",
+              family: needsHotel === "yes" ? family : "",
+            }),
+          })
+        : Promise.resolve(),
+    ]);
 
-    if (!resp.ok) {
-      const err = await resp.text();
+    if (!emailResp.ok) {
+      const err = await emailResp.text();
       console.error("Resend error:", err);
       return res.status(500).json({ error: "Email konnte nicht gesendet werden." });
     }
