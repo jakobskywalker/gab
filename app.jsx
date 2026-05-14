@@ -1304,6 +1304,8 @@ function RSVP() {
   const [state, setState] = useState(EMPTY_RSVP);
   const [step, setStep] = useState(1);
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState(null);
   const set = (k, v) => setState((s) => ({ ...s, [k]: v }));
   const thanksName = state.firstName.trim() ? state.firstName : r.thanksFallbackName;
   const fullName = `${state.firstName} ${state.lastName}`.trim();
@@ -1337,8 +1339,29 @@ function RSVP() {
     setStep(state.attending === "yes" ? 2 : 3);
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!valid || submitting) return;
+    setSubmitting(true);
+    setSubmitError(null);
+    try {
+      const res = await fetch("/api/rsvp", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...state, guestNames: state.guestNames.slice(0, state.plusOnes) }),
+      });
+      if (!res.ok) throw new Error("Fehler beim Senden");
+      setSubmitted(true);
+    } catch {
+      setSubmitError("Es ist ein Fehler aufgetreten. Bitte versuche es nochmal oder schreibe uns direkt eine E-Mail.");
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
   const resetForm = () => {
     setSubmitted(false);
+    setSubmitError(null);
     setStep(1);
     setState(EMPTY_RSVP);
   };
@@ -1386,7 +1409,7 @@ function RSVP() {
         </div>
 
         <Reveal>
-          <form className="lux-panel ornament-corners p-7 md:p-10" onSubmit={(e) => { e.preventDefault(); if (valid) setSubmitted(true); }}>
+          <form className="lux-panel ornament-corners p-7 md:p-10" onSubmit={handleSubmit}>
             <div className="mb-10 flex items-center gap-3">
               {[1, 2, 3].map((n) => (
                 <React.Fragment key={n}>
@@ -1602,13 +1625,16 @@ function RSVP() {
                     {r.next} <Icons.ArrowRight w={14} h={14} sw={2}/>
                   </button>
                 ) : (
-                  <button type="submit" disabled={!valid}
-                    className={`btn-primary px-8 py-4 rounded-sm uppercase text-xs tracking-[0.3em] flex items-center gap-3 ${!valid ? "opacity-40 cursor-not-allowed" : ""}`}>
-                    {r.submit} <Icons.ArrowRight w={14} h={14} sw={2}/>
+                  <button type="submit" disabled={!valid || submitting}
+                    className={`btn-primary px-8 py-4 rounded-sm uppercase text-xs tracking-[0.3em] flex items-center gap-3 ${(!valid || submitting) ? "opacity-40 cursor-not-allowed" : ""}`}>
+                    {submitting ? "..." : r.submit} {!submitting && <Icons.ArrowRight w={14} h={14} sw={2}/>}
                   </button>
                 )}
               </div>
             </div>
+            {submitError && (
+              <p className="mt-4 text-sm text-red-600 text-center">{submitError}</p>
+            )}
           </form>
         </Reveal>
       </div>
