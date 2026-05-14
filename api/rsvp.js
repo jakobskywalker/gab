@@ -72,7 +72,7 @@ export default async function handler(req, res) {
         },
         body: JSON.stringify({
           from: "Hochzeit RSVP <rsvp@gabrielizla.de>",
-          to: ["gabmalki@gmail.com", "jakob.baumann12345@gmail.com"],
+          to: ["gabmalki@gmail.com", "jakob.baumann12345@gmail.com", "izla_malki@outlook.com"],
           subject: `RSVP: ${fullName} — ${isYes ? "Zusage ✓" : "Absage ✗"}`,
           html,
         }),
