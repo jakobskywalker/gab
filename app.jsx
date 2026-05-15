@@ -681,7 +681,7 @@ function FloatingNav() {
     { id: "timeline", label: copy.nav.timeline },
     { id: "locations", label: copy.nav.locations },
     { id: "hotels", label: copy.nav.hotels },
-    { id: "deadline", label: copy.nav.deadline },
+    { id: "rsvp", label: copy.nav.deadline },
   ];
 
   useEffect(() => {
