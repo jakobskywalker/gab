@@ -177,7 +177,9 @@ const SITE_COPY = {
       summaryYesPhrase: "Ja, wir kommen!",
       summaryHotelYes: (n, fam) => `Ja, ${n} Zimmer · Familie ${fam}`,
       summaryHotelNo: "Nein",
-      questionsFooter: "Bei Fragen: hochzeit@izla-gabriel.de",
+      questionsFooter: "Bei Rückfragen:",
+      contactGabriel: "MALKI Gabriel",
+      contactIzla: "PIRO Izla",
       back: "Zurück",
       next: "Weiter",
       submit: "Antwort absenden",
@@ -361,7 +363,9 @@ const SITE_COPY = {
       summaryYesPhrase: "Yes, we'll be there!",
       summaryHotelYes: (n, fam) => `Yes — ${n} room${n > 1 ? "s" : ""} · ${fam}`,
       summaryHotelNo: "No",
-      questionsFooter: "Questions: hochzeit@izla-gabriel.de",
+      questionsFooter: "Questions:",
+      contactGabriel: "MALKI Gabriel",
+      contactIzla: "PIRO Izla",
       back: "Back",
       next: "Next",
       submit: "Send reply",
@@ -1609,7 +1613,21 @@ function RSVP() {
 
             {/* Submit */}
             <div className="mt-10 flex flex-col-reverse sm:flex-row items-center justify-between gap-4">
-              <p className="text-xs text-coffee/70 font-script italic">{r.questionsFooter}</p>
+              <div className="text-center text-xs leading-relaxed text-coffee/75 sm:text-left">
+                <p className="font-script text-sm italic text-coffee">{r.questionsFooter}</p>
+                <p>
+                  <span className="font-semibold tracking-[0.08em] text-espresso/80">{r.contactGabriel}:</span>{" "}
+                  <a className="underline decoration-coffee/30 underline-offset-4 hover:text-espresso" href="tel:+4917670187691">
+                    +49 176 70187691
+                  </a>
+                </p>
+                <p>
+                  <span className="font-semibold tracking-[0.08em] text-espresso/80">{r.contactIzla}:</span>{" "}
+                  <a className="underline decoration-coffee/30 underline-offset-4 hover:text-espresso" href="tel:+436602001094">
+                    +43 660 2001094
+                  </a>
+                </p>
+              </div>
               <div className="flex items-center gap-3">
                 {step > 1 && (
                   <button type="button" onClick={() => setStep(state.attending === "yes" && step === 3 ? 2 : 1)}
