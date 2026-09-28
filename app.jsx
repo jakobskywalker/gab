@@ -44,9 +44,10 @@ const SITE_COPY = {
       minutes: "Minuten",
     },
     timeline: [
-      { time: "13:00", title: "Teqimo Bräutigam", sub: "Zur Aumühle 9, 86153 Augsburg", icon: "Sparkles", note: "" },
-      { time: "13:45", title: "Teqimo Braut", sub: "Vienna House Easy, Am Technologiezentrum 1, 86159 Augsburg", icon: "Heart", note: "" },
-      { time: "14:45", title: "Kirchliche Trauung", sub: "Syrisch-Orthodoxe Kirche von Antiochien, Zusamstraße 17, 86165 Augsburg", icon: "Heart", note: "Bitte pünktlich erscheinen." },
+      { time: "12:15", title: "Teqimo Bräutigam", sub: "Zur Aumühle 9, 86153 Augsburg", icon: "Sparkles", note: "" },
+      { time: "12:40", title: "Teqimo Braut (Familie der Braut)", sub: "Vienna House Easy, Am Technologiezentrum 1, 86159 Augsburg", icon: "Heart", note: "" },
+      { time: "13:45", title: "Brautabholung", sub: "", icon: "Heart", note: "" },
+      { time: "14:30", title: "Kirchliche Trauung", sub: "Syrisch-Orthodoxe Kirche von Antiochien, Zusamstraße 17, 86165 Augsburg", icon: "Heart", note: "Bitte pünktlich erscheinen." },
       { time: "17:00", title: "Hochzeitsfeier", sub: "MAVI Event & Location (Rüya Saal), Daimlerstraße 3, 89275 Elchingen", icon: "Music", note: "Ausreichend Parkplätze vorhanden." },
     ],
     timelineSection: {
@@ -60,21 +61,21 @@ const SITE_COPY = {
     locations: [
       {
         title: "Teqimo Bräutigam",
-        time: "13:00 Uhr",
+        time: "12:15 Uhr",
         address: "Zur Aumühle 9, 86153 Augsburg",
         image: "/images/location-kirche.png",
         imageAlt: "Teqimo Bräutigam",
       },
       {
         title: "Teqimo Braut",
-        time: "13:45 Uhr",
+        time: "12:40 Uhr",
         address: "Vienna House Easy, Am Technologiezentrum 1, 86159 Augsburg",
         image: "/images/location-teqimo-braut.png",
         imageAlt: "Teqimo Braut",
       },
       {
         title: "Kirchliche Trauung",
-        time: "14:45 Uhr",
+        time: "14:30 Uhr",
         address: "Syrisch-Orthodoxe Kirche von Antiochien, Zusamstraße 17, 86165 Augsburg",
         image: "/images/location-teqimo-braeutigam.png",
         imageAlt: "Kirche der Trauung",
@@ -224,10 +225,11 @@ const SITE_COPY = {
       minutes: "Minutes",
     },
     timeline: [
-      { time: "13:00", title: "Teqimo groom", sub: "Zur Aumühle 9, 86153 Augsburg", icon: "Sparkles", note: "" },
-      { time: "13:45", title: "Teqimo bride", sub: "Vienna House Easy, Am Technologiezentrum 1, 86159 Augsburg", icon: "Heart", note: "" },
+      { time: "12:15", title: "Teqimo groom", sub: "Zur Aumühle 9, 86153 Augsburg", icon: "Sparkles", note: "" },
+      { time: "12:40", title: "Teqimo bride (Bride's family)", sub: "Vienna House Easy, Am Technologiezentrum 1, 86159 Augsburg", icon: "Heart", note: "" },
+      { time: "13:45", title: "Bride pickup", sub: "", icon: "Heart", note: "" },
       {
-        time: "14:45",
+        time: "14:30",
         title: "Church ceremony",
         sub: "Syriac Orthodox Church of Antioch, Zusamstraße 17, 86165 Augsburg",
         icon: "Heart",
@@ -246,21 +248,21 @@ const SITE_COPY = {
     locations: [
       {
         title: "Teqimo groom",
-        time: "1:00 p.m.",
+        time: "12:15 p.m.",
         address: "Zur Aumühle 9, 86153 Augsburg",
         image: "/images/location-kirche.png",
         imageAlt: "Teqimo groom",
       },
       {
         title: "Teqimo bride",
-        time: "1:45 p.m.",
+        time: "12:40 p.m.",
         address: "Vienna House Easy, Am Technologiezentrum 1, 86159 Augsburg",
         image: "/images/location-teqimo-braut.png",
         imageAlt: "Teqimo bride",
       },
       {
         title: "Church ceremony",
-        time: "2:45 p.m.",
+        time: "2:30 p.m.",
         address: "Syriac Orthodox Church of Antioch, Zusamstraße 17, 86165 Augsburg",
         image: "/images/location-teqimo-braeutigam.png",
         imageAlt: "Church ceremony",
@@ -1066,7 +1068,7 @@ function Timeline() {
                     <span className="font-micro">{ts.stationPrefix} {String(i + 1).padStart(2, "0")}</span>
                   </div>
                   <h3 className="font-display text-3xl leading-tight text-espresso md:text-4xl">{row.title}</h3>
-                  <p className="mt-3 max-w-xl text-sm leading-relaxed text-coffee/85">{row.sub}</p>
+                  {row.sub && <p className="mt-3 max-w-xl text-sm leading-relaxed text-coffee/85">{row.sub}</p>}
                   {row.note && <p className="mt-4 max-w-xl text-[13.5px] leading-relaxed text-ink/75">{row.note}</p>}
                 </article>
               </Reveal>
